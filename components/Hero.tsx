@@ -1,9 +1,8 @@
 import React from "react";
 import { Spotlight } from "./ui/Spotlight";
 import { TextGenerateEffect } from "./ui/text-generate-effect.tsx";
-
-const words = `Oxygen gets you high. In a catastrophic emergency, we're taking giant, panicked breaths. Suddenly you become euphoric, docile. You accept your fate. It's all right here. Emergency water landing, six hundred miles an hour. Blank faces, calm as Hindu cows
-`;
+import MagicButton from "./ui/MagicButton";
+import { FaLocationArrow } from "react-icons/fa";
 
 const Hero = () => {
   return (
@@ -26,9 +25,26 @@ const Hero = () => {
 
       <div className="flex justify-center relative my-20 z-10">
         <div className="max-w-[89vw] md:max-w-2xl lg:nax-w-[60vw] flex flex-col items-center justify-center">
-          <h2 className="uppercase tracking-widest text-xs text-center text-blue-100 max-w-80">
-            <TextGenerateEffect duration={2} filter={false} words={words} />
-          </h2>
+          {/* <h2 className="uppercase tracking-widest text-xs text-center text-blue-100 max-w-80">
+            Turning Ideas into Fast, Scalable, and Stunning Web Applications
+          </h2> */}
+          <TextGenerateEffect
+            className="text-center text-[40px] md:text-4xl lg:text-5xl"
+            words="Hi 👋, I'm Nisarg Gandhi, a Software Developer based in
+            Bangalore, India"
+          />
+          {/* <p className="text-center md:tracking-wider mb-4 text-sm md:text-lg lg:text-2xl">
+            Hi 👋, I&apos;m Nisarg Gandhi, a Software Developer based in
+            Bangalore, India
+          </p> */}
+
+          <a href="#about">
+            <MagicButton
+              title="Explore My Work"
+              icon={<FaLocationArrow />}
+              position="right"
+            />
+          </a>
         </div>
       </div>
     </div>

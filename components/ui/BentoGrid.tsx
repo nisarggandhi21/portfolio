@@ -158,8 +158,6 @@ export const BentoGridItem = ({
               <a href="mailto:nisarggandhi21@gmail.com">
                 <MagicButton
                   title={"nisarggandhi21@gmail.com"}
-                  icon={<IoCopyOutline />}
-                  position="left"
                   otherClasses="!bg-[#060606]"
                 />
               </a>

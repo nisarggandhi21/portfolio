@@ -3,6 +3,9 @@ import { cn } from "@/lib/utils";
 import { BackgroundGradientAnimation } from "./GradientBg";
 import { GlobeDemo } from "./GridGlobe";
 import CodingTimeCards from "../bentoCards/CodingTimeCards";
+import { IoCopyOutline } from "react-icons/io5";
+import MagicButton from "./MagicButton";
+import SocialCards from "../bentoCards/SocialCards";
 
 export const BentoGrid = ({
   className,
@@ -44,23 +47,6 @@ export const BentoGridItem = ({
 }) => {
   const leftLists = ["Javascript", "Express", "ReactJS"];
   const rightLists = ["NextJS", "Typescript", "GraphQL"];
-
-  // const [copied, setCopied] = useState(false);
-
-  // const defaultOptions = {
-  //   loop: copied,
-  //   autoplay: copied,
-  //   animationData: animationData,
-  //   rendererSettings: {
-  //     preserveAspectRatio: "xMidYMid slice",
-  //   },
-  // };
-
-  // const handleCopy = () => {
-  //   const text = "hsu@jsmastery.pro";
-  //   navigator.clipboard.writeText(text);
-  //   setCopied(true);
-  // };
 
   return (
     <div
@@ -128,7 +114,7 @@ export const BentoGridItem = ({
           </div>
 
           {/* for the github 3d globe */}
-          {id === 2 && <GlobeDemo />}
+          {/* {id === 2 && <GlobeDemo />} */}
 
           {/* Tech stack list div */}
           {id === 3 && (
@@ -162,7 +148,23 @@ export const BentoGridItem = ({
           )}
 
           {/* for the wakaTime */}
+          {id === 1 && <SocialCards />}
+
+          {/* for the wakaTime */}
           {id === 4 && <CodingTimeCards />}
+
+          {id === 6 && (
+            <div className="relative">
+              <a href="mailto:nisarggandhi21@gmail.com">
+                <MagicButton
+                  title={"nisarggandhi21@gmail.com"}
+                  icon={<IoCopyOutline />}
+                  position="left"
+                  otherClasses="!bg-[#060606]"
+                />
+              </a>
+            </div>
+          )}
         </div>
       </div>
     </div>

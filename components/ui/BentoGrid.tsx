@@ -1,9 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import { cn } from "@/lib/utils";
 import { BackgroundGradientAnimation } from "./GradientBg";
-import { GlobeDemo } from "./GridGlobe";
 import CodingTimeCards from "../bentoCards/CodingTimeCards";
-import { IoCopyOutline } from "react-icons/io5";
 import MagicButton from "./MagicButton";
 import SocialCards from "../bentoCards/SocialCards";
 

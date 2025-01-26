@@ -1,4 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
 import { cn } from "@/lib/utils";
 import { BackgroundGradientAnimation } from "./GradientBg";
 import CodingTimeCards from "../bentoCards/CodingTimeCards";
@@ -58,7 +57,6 @@ export const BentoGridItem = ({
           "linear-gradient(90deg, rgba(4,7,29,1) 0%, rgba(12,14,35,1) 100%)",
       }}
     >
-      {/* add img divs */}
       <div className={`${id === 6 && "flex justify-center"} h-full`}>
         <div className="w-full h-full absolute">
           {img && (
@@ -75,19 +73,17 @@ export const BentoGridItem = ({
         <div
           className={`absolute right-0 -bottom-0 ${
             id === 5 && "w-full opacity-80"
-          } `}
+          }`}
         >
           {spareImg && (
             <img
               src={spareImg}
               alt={spareImg}
-              // width={220}
               className="object-cover object-center w-full h-full"
             />
           )}
         </div>
         {id === 6 && (
-          // add background animation , remove the p tag
           <BackgroundGradientAnimation>
             <div className="absolute z-50 inset-0 flex items-center justify-center text-white font-bold px-4 pointer-events-none text-3xl text-center md:text-4xl lg:text-7xl"></div>
           </BackgroundGradientAnimation>
@@ -99,25 +95,17 @@ export const BentoGridItem = ({
             "group-hover/bento:translate-x-2 transition duration-200 relative md:h-full min-h-40 flex flex-col px-5 p-5 lg:p-10"
           )}
         >
-          {/* change the order of the title and des, font-extralight, remove text-xs text-neutral-600 dark:text-neutral-300 , change the text-color */}
           <div className="font-sans font-extralight md:max-w-32 md:text-xs lg:text-base text-sm text-[#C1C2D3] z-10">
             {description}
           </div>
-          {/* add text-3xl max-w-96 , remove text-neutral-600 dark:text-neutral-300*/}
-          {/* remove mb-2 mt-2 */}
           <div
             className={`font-sans text-lg lg:text-3xl max-w-96 font-bold z-10`}
           >
             {title}
           </div>
 
-          {/* for the github 3d globe */}
-          {/* {id === 2 && <GlobeDemo />} */}
-
-          {/* Tech stack list div */}
           {id === 3 && (
             <div className="flex gap-1 lg:gap-5 w-fit absolute -right-3 lg:-right-0 ">
-              {/* tech stack lists */}
               <div className="flex flex-col gap-3 md:gap-3 lg:gap-4">
                 {leftLists.map((item, i) => (
                   <span
@@ -145,10 +133,7 @@ export const BentoGridItem = ({
             </div>
           )}
 
-          {/* for the wakaTime */}
           {id === 1 && <SocialCards />}
-
-          {/* for the wakaTime */}
           {id === 4 && <CodingTimeCards />}
 
           {id === 6 && (
@@ -162,6 +147,30 @@ export const BentoGridItem = ({
             </div>
           )}
         </div>
+
+        {/* Add link for id === 5 */}
+        {id === 5 && (
+          <a
+            href="https://taste-of-home-client.vercel.app/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="absolute inset-0 z-10"
+          >
+            {/* This makes the entire div clickable */}
+          </a>
+        )}
+
+        {/* Add link for id === 4 */}
+        {id === 4 && (
+          <a
+            href="https://wakatime.com/@nisarggandhi21"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="absolute inset-0 z-10"
+          >
+            {/* This makes the entire div clickable */}
+          </a>
+        )}
       </div>
     </div>
   );

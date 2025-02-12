@@ -154,7 +154,7 @@ export const workExperience = [
   {
     id: 3,
     title: "Web Development Trainee",
-    desc: "Managed and optimized 7+ websites at Walnut Folks, enhancing performance and reducing load times through efficient coding and server optimizations.",
+    desc: "Managed and optimized 7+ websites, enhancing performance and reducing load times through efficient coding and server optimizations.",
     className: "md:col-span-2", // change to md:col-span-2
     thumbnail: "/exp2.svg",
   },

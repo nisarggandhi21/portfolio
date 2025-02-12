@@ -43,7 +43,7 @@ export const BentoGridItem = ({
   spareImg?: string;
 }) => {
   const leftLists = ["Javascript", "Express", "ReactJS"];
-  const rightLists = ["NextJS", "Typescript", "GraphQL"];
+  const rightLists = ["NextJS", "Typescript", "Angular"];
 
   return (
     <div

@@ -1,13 +1,8 @@
 import type { Config } from "tailwindcss";
-
 const svgToDataUri = require("mini-svg-data-uri");
-
 const colors = require("tailwindcss/colors");
-const {
-  default: flattenColorPalette,
-} = require("tailwindcss/lib/util/flattenColorPalette");
 
-const config = {
+const config: Config = {
   darkMode: ["class"],
   content: [
     "./pages/**/*.{ts,tsx}",
@@ -39,7 +34,7 @@ const config = {
           200: "#C1C2D3",
         },
         blue: {
-          "100": "#E4ECFF",
+          100: "#E4ECFF",
         },
         purple: "#CBACF9",
         border: "hsl(var(--border))",
@@ -184,15 +179,49 @@ const config = {
             )}")`,
           }),
         },
-        { values: flattenColorPalette(theme("backgroundColor")), type: "color" }
+        { values: flattenColors(theme("colors")), type: "color" }
       );
     },
   ],
 } satisfies Config;
 
+/**
+ * flattenColors
+ *  - Recursively flattens the Tailwind colors configuration into a simple map
+ *  - Keeps only string values (hex, rgb, hsl, css vars, etc.)
+ *  - Keys are joined with '-' to create usable names, e.g. "blue-500"
+ */
+function flattenColors(colorsInput: any) {
+  const out: Record<string, string> = {};
+
+  function walk(prefix: string, node: any) {
+    if (node == null) return;
+    if (typeof node === "string") {
+      const key = prefix.replace(/^-+|-+$/g, ""); // trim stray dashes
+      out[key] = node;
+      return;
+    }
+    if (typeof node === "object") {
+      for (const [k, v] of Object.entries(node)) {
+        const nextKey = prefix ? `${prefix}-${k}` : k;
+        walk(nextKey, v);
+      }
+    }
+    // skip functions and other non-serializable values
+  }
+
+  walk("", colorsInput);
+  return out;
+}
+
+/**
+ * addVariablesForColors
+ *  - Creates :root CSS variables for each flattened color:
+ *    e.g. --blue-500: #3b82f6;
+ */
 function addVariablesForColors({ addBase, theme }: any) {
-  let allColors = flattenColorPalette(theme("colors"));
-  let newVars = Object.fromEntries(
+  const allColors = flattenColors(theme("colors"));
+  const newVars = Object.fromEntries(
     Object.entries(allColors).map(([key, val]) => [`--${key}`, val])
   );
 

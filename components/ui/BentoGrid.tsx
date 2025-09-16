@@ -1,8 +1,8 @@
 import { cn } from "@/lib/utils";
-import { BackgroundGradientAnimation } from "./GradientBg";
 import CodingTimeCards from "../bentoCards/CodingTimeCards";
-import MagicButton from "./MagicButton";
 import SocialCards from "../bentoCards/SocialCards";
+import { BackgroundGradientAnimation } from "./GradientBg";
+import MagicButton from "./MagicButton";
 
 export const BentoGrid = ({
   className,
@@ -151,7 +151,7 @@ export const BentoGridItem = ({
         {/* Add link for id === 5 */}
         {id === 5 && (
           <a
-            href="https://taste-of-home-client.vercel.app/"
+            href="https://taste-of-home.nisarg-gandhi.com/"
             target="_blank"
             rel="noopener noreferrer"
             className="absolute inset-0 z-10"

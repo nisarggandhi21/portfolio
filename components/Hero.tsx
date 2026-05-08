@@ -1,7 +1,6 @@
-import React from "react";
+import MagicButton from "./ui/MagicButton";
 import { Spotlight } from "./ui/Spotlight";
 import { TextGenerateEffect } from "./ui/text-generate-effect.tsx";
-import MagicButton from "./ui/MagicButton";
 // import { FaLocationArrow } from "react-icons/fa";
 
 const Hero = () => {
@@ -31,11 +30,11 @@ const Hero = () => {
           <TextGenerateEffect
             className="text-center text-[40px] md:text-4xl lg:text-5xl"
             words="Hi 👋, I'm Nisarg Gandhi, a Software Developer based in
-            Bangalore, India"
+            Mumbai, India"
           />
           {/* <p className="text-center md:tracking-wider mb-4 text-sm md:text-lg lg:text-2xl">
             Hi 👋, I&apos;m Nisarg Gandhi, a Software Developer based in
-            Bangalore, India
+            Mumbai, India
           </p> */}
 
           <a href="#about">

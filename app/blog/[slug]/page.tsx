@@ -44,42 +44,47 @@ export default async function BlogPostPage({ params }: Props) {
   if (!post) notFound();
 
   return (
-    <article className="mt-10">
-      <Link href="/blog" className="text-sm text-white-100 hover:text-white transition">
+    <article className="pt-10 md:pt-16">
+      <Link
+        href="/blog"
+        className="text-sm text-muted-foreground transition hover:text-foreground"
+      >
         &larr; All posts
       </Link>
 
-      <h1 className="mt-6 text-3xl md:text-5xl font-bold leading-tight text-white">
-        {post.title}
-      </h1>
-      <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-white-100">
-        <span>
-          {formatDate(post.date)} · {post.readingTime} min read
-        </span>
-        {post.originalUrl && (
-          <a
-            href={post.originalUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 hover:text-white transition"
-          >
-            {post.originalSource === "LinkedIn" && <FaLinkedin aria-hidden />}
-            {post.originalSource === "Medium" && <FaMedium aria-hidden />}
-            Originally published on {post.originalSource}
-          </a>
-        )}
-      </div>
+      <header className="mt-8 border-b border-border pb-8">
+        <h1 className="font-serif text-4xl leading-[1.1] md:text-6xl">
+          {post.title}
+        </h1>
+        <div className="mt-5 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-muted-foreground">
+          <span className="tabular-nums">
+            {formatDate(post.date)} · {post.readingTime} min read
+          </span>
+          {post.originalUrl && (
+            <a
+              href={post.originalUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 transition hover:text-foreground"
+            >
+              {post.originalSource === "LinkedIn" && <FaLinkedin aria-hidden />}
+              {post.originalSource === "Medium" && <FaMedium aria-hidden />}
+              Originally published on {post.originalSource}
+            </a>
+          )}
+        </div>
+      </header>
 
       {post.coverImage && (
         // eslint-disable-next-line @next/next/no-img-element
         <img
           src={post.coverImage}
           alt=""
-          className="mt-8 w-full rounded-2xl border border-white/[0.1]"
+          className="mt-8 w-full rounded-lg border border-border"
         />
       )}
 
-      <div className="prose prose-invert md:prose-lg mt-10 max-w-none prose-a:text-purple prose-headings:text-white prose-img:rounded-xl prose-pre:bg-[rgb(4,7,29)] prose-pre:border prose-pre:border-white/[0.1]">
+      <div className="prose prose-stone dark:prose-invert md:prose-lg mt-10 max-w-none prose-headings:font-serif prose-headings:font-normal prose-a:underline-offset-4 prose-img:rounded-lg prose-pre:border prose-pre:border-border prose-pre:bg-card prose-pre:text-foreground">
         <ReactMarkdown remarkPlugins={[remarkGfm]}>{post.content}</ReactMarkdown>
       </div>
     </article>

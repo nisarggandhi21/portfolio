@@ -250,3 +250,53 @@ export const socialMedia = [
     link: "https://linkedin.com/in/nisarggandhi21",
   },
 ];
+
+// ---------------------------------------------------------------------------
+// Resume-style homepage
+// ---------------------------------------------------------------------------
+
+export const profile = {
+  name: "Nisarg Gandhi",
+  title: "Full Stack Developer",
+  location: "Mumbai, India",
+  // Set to "" to hide the availability badge
+  availability: "Open to new roles",
+  email: "nisarggandhi21@gmail.com",
+  summary:
+    "Full Stack Developer with 2.7 years of experience building scalable web applications using React.js, Next.js, and Node.js. Promoted within 12 months at Withum for delivering high-impact solutions across frontend, backend, and DevOps, including US tax auditing workflows.",
+  links: [
+    { label: "LinkedIn", href: "https://www.linkedin.com/in/nisarggandhi21/" },
+    { label: "GitHub", href: "https://github.com/nisarggandhi21" },
+    { label: "X", href: "https://x.com/nisarggandhi21" },
+  ],
+};
+
+export const personalProjects = [
+  {
+    name: "Taste of Home",
+    href: "https://taste-of-home.nisarg-gandhi.com/",
+    description:
+      "A web app for discovering homemade food from local home cooks. Work in progress.",
+  },
+];
+
+export const awards = [
+  {
+    title: "Gotcha Award (3×)",
+    detail:
+      "Recognized by Chan Patel (Partner, Withum) for outstanding performance and contributions.",
+  },
+  {
+    title: "22+ Withum Bucks",
+    detail: "Earned for consistent and innovative performance across projects.",
+  },
+];
+
+export const education = [
+  {
+    school: "PES University",
+    degree: "Master of Computer Applications (MCA)",
+    location: "Bengaluru",
+    period: "Oct 2022 – Jun 2024",
+  },
+];

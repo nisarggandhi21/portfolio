@@ -21,48 +21,45 @@ export default function BlogPage() {
 
   return (
     <>
-      <h1 className="heading mt-10">
-        My <span className="text-purple">blog</span>
-      </h1>
-      <p className="text-center text-white-100 mt-4">
-        Thoughts on software development, tech and things I&apos;ve learned
-        along the way.
-      </p>
+      <header className="border-b border-border pb-10 pt-10 md:pt-16">
+        <h1 className="font-serif text-5xl tracking-tight md:text-7xl">
+          Writing
+        </h1>
+        <p className="mt-4 max-w-2xl text-lg leading-relaxed text-foreground/80">
+          Thoughts on software development, AI and things I&apos;ve learned
+          along the way.
+        </p>
+      </header>
 
       {posts.length === 0 ? (
-        <p className="text-center text-white-200 mt-16">
+        <p className="mt-12 text-muted-foreground">
           Posts are on their way. Check back soon!
         </p>
       ) : (
-        <ul className="mt-12 flex flex-col gap-6">
+        <ul className="divide-y divide-border">
           {posts.map((post) => (
             <li key={post.slug}>
               <Link
                 href={`/blog/${post.slug}`}
-                className="block rounded-2xl border border-white/[0.1] p-6 md:p-8 transition hover:border-purple/50 hover:-translate-y-0.5"
-                style={{ background: "rgb(4,7,29)" }}
+                className="group grid gap-2 py-8 md:grid-cols-[9rem_1fr] md:gap-10"
               >
-                <p className="text-sm text-white-100">
-                  {formatDate(post.date)} · {post.readingTime} min read
+                <p className="text-sm tabular-nums text-muted-foreground md:pt-1.5">
+                  {formatDate(post.date)}
                 </p>
-                <h2 className="mt-2 text-xl md:text-2xl font-bold text-white">
-                  {post.title}
-                </h2>
-                {post.description && (
-                  <p className="mt-3 text-white-200">{post.description}</p>
-                )}
-                {post.tags.length > 0 && (
-                  <div className="mt-4 flex flex-wrap gap-2">
-                    {post.tags.map((tag) => (
-                      <span
-                        key={tag}
-                        className="rounded-lg bg-[#2b2535] px-3 py-1 text-xs text-white"
-                      >
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                )}
+                <div>
+                  <h2 className="font-serif text-2xl leading-snug underline-offset-4 decoration-border group-hover:underline md:text-3xl">
+                    {post.title}
+                  </h2>
+                  {post.description && (
+                    <p className="mt-2 leading-relaxed text-foreground/80">
+                      {post.description}
+                    </p>
+                  )}
+                  <p className="mt-3 text-sm text-muted-foreground">
+                    {post.readingTime} min read
+                    {post.tags.length > 0 && ` · ${post.tags.join(", ")}`}
+                  </p>
+                </div>
               </Link>
             </li>
           ))}

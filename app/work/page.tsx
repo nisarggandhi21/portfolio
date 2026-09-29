@@ -21,6 +21,9 @@ export const metadata: Metadata = {
   alternates: { canonical: "/work", types: rssAlternate },
 };
 
+// Rebuild daily so durations of the current role ("Present") stay accurate
+export const revalidate = 86400;
+
 const pad = (n: number) => String(n).padStart(2, "0");
 
 // Numbered row, like the DevAtlas category list
@@ -56,7 +59,7 @@ export default function WorkPage() {
           size="lg"
           label={`The work · ${workExperience.length} roles · ${formatDuration(totalMonths)}`}
           title="Where I've worked"
-          intro="From React dashboards and GraphQL APIs to CI/CD pipelines on AWS, here is where I've worked, what I built and the results it delivered."
+          intro="From an AI chat assistant and virtual try-on at Sugar Cosmetics to React dashboards, GraphQL APIs and CI/CD pipelines at Withum: where I've worked, what I built and the results it delivered."
         />
 
         <div className="mt-14 space-y-8">
@@ -93,16 +96,18 @@ export default function WorkPage() {
                 {job.projects.map((project) => (
                   <div key={project.name}>
                     <Label className="text-accent">{project.name}</Label>
-                    <ul className="mt-3 flex flex-wrap gap-2">
-                      {project.stack.map((tech) => (
-                        <li
-                          key={tech}
-                          className="rounded-md border border-line bg-bg px-2 py-0.5 font-mono text-xs text-muted"
-                        >
-                          {tech}
-                        </li>
-                      ))}
-                    </ul>
+                    {project.stack.length > 0 && (
+                      <ul className="mt-3 flex flex-wrap gap-2">
+                        {project.stack.map((tech) => (
+                          <li
+                            key={tech}
+                            className="rounded-md border border-line bg-bg px-2 py-0.5 font-mono text-xs text-muted"
+                          >
+                            {tech}
+                          </li>
+                        ))}
+                      </ul>
+                    )}
                     <ul className="mt-4 list-disc space-y-2 pl-5 text-[15px] leading-relaxed text-muted marker:text-faint">
                       {project.points.map((point) => (
                         <li key={point}>
@@ -132,7 +137,7 @@ export default function WorkPage() {
         </ol>
       </Container>
 
-      <Container className="mt-24 grid gap-16 lg:grid-cols-2">
+      <Container className="mt-24 space-y-16">
         <section>
           <Label>Projects</Label>
           <ol className="mt-4 border-t border-line">
@@ -151,7 +156,26 @@ export default function WorkPage() {
                   </a>
                 }
               >
-                {project.description}
+                <span className="label block text-faint">{project.period}</span>
+                <span className="mt-2 block">{project.description}</span>
+                <span className="mt-3 flex flex-wrap items-center gap-2">
+                  {project.stack.map((tech) => (
+                    <span
+                      key={tech}
+                      className="rounded-md border border-line bg-bg px-2 py-0.5 font-mono text-xs text-muted"
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                  <a
+                    href={project.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="label ml-1 text-accent"
+                  >
+                    GitHub ↗
+                  </a>
+                </span>
               </Row>
             ))}
           </ol>

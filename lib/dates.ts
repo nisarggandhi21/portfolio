@@ -19,10 +19,17 @@ function parse(ym: string) {
   return { year, month };
 }
 
-// Whole months from start to end, counting both ends (Jul 2024 – Jun 2026 = 24)
-export function monthsBetween(start: string, end: string): number {
+// Current month as "YYYY-MM"; used for roles without an end date
+function currentMonth(): string {
+  const now = new Date();
+  return `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}`;
+}
+
+// Whole months from start to end, counting both ends (Jul 2024 – Jun 2026 = 24).
+// A missing end means the role is ongoing.
+export function monthsBetween(start: string, end?: string): number {
   const a = parse(start);
-  const b = parse(end);
+  const b = parse(end ?? currentMonth());
   return (b.year - a.year) * 12 + (b.month - a.month) + 1;
 }
 
@@ -36,10 +43,16 @@ export function formatDuration(totalMonths: number): string {
   return parts.join(" ") || "0 mos";
 }
 
-// "2024-07" -> "Jul 2024"
-export function formatMonth(ym: string): string {
+// "2024-07" -> "Jul 2024"; no date -> "Present"
+export function formatMonth(ym?: string): string {
+  if (!ym) return "Present";
   const { year, month } = parse(ym);
   return `${MONTHS[month - 1]} ${year}`;
+}
+
+// "2024-07" -> "2024"; no date -> "Present"
+export function yearLabel(ym?: string): string {
+  return ym ? String(parse(ym).year) : "Present";
 }
 
 export function yearOf(ym: string): number {

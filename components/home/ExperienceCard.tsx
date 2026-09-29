@@ -3,7 +3,7 @@ import { FiArrowRight, FiSearch } from "react-icons/fi";
 
 import { Kbd, Label, LogoTile, Tag } from "../ui";
 import { profile, workExperience } from "@/data";
-import { formatDuration, monthsBetween, yearOf } from "@/lib/dates";
+import { formatDuration, monthsBetween, yearLabel, yearOf } from "@/lib/dates";
 
 // Experience shown as a search/command-palette style card
 const ExperienceCard = () => {
@@ -12,7 +12,12 @@ const ExperienceCard = () => {
     0,
   );
   const firstYear = Math.min(...workExperience.map((j) => yearOf(j.start)));
-  const lastYear = Math.max(...workExperience.map((j) => yearOf(j.end)));
+  const ongoing = workExperience.some((j) => !j.end);
+  const lastYear = ongoing
+    ? "Present"
+    : yearLabel(
+        [...workExperience].sort((a, b) => (a.end! < b.end! ? 1 : -1))[0].end,
+      );
 
   return (
     <div className="overflow-hidden rounded-xl border border-line bg-surface">

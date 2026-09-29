@@ -27,6 +27,8 @@ export default async function Home() {
     0,
   );
 
+  const currentJob = workExperience.find((job) => !job.end);
+
   const findMe = [
     ...profile.links,
     { label: "WakaTime", href: profile.wakatimeProfile },
@@ -39,7 +41,9 @@ export default async function Home() {
       <Container className="grid gap-14 pt-16 sm:pt-24 lg:grid-cols-[1.1fr_1fr] lg:gap-16 lg:pt-32">
         <div>
           <Label dash>
-            Portfolio · {profile.availability || profile.location}
+            Portfolio ·{" "}
+            {profile.availability ||
+              (currentJob ? `Now at ${currentJob.company}` : profile.location)}
           </Label>
           <h1 className="mt-8 font-serif text-[3.2rem] leading-[0.98] tracking-tight text-ink sm:text-7xl lg:text-[4.6rem]">
             I&apos;m {profile.name},
@@ -48,8 +52,10 @@ export default async function Home() {
             </span>
           </h1>
           <p className="mt-8 max-w-xl text-xl leading-relaxed text-muted">
-            Building scalable web applications with React.js, Next.js and
-            Node.js for {formatDuration(totalMonths)}. Based in{" "}
+            {formatDuration(totalMonths)} building scalable web applications
+            with React.js, Next.js and Node.js, and now LLM-powered features
+            with RAG and LangChain
+            {currentJob ? ` at ${currentJob.company}` : ""}. Based in{" "}
             {profile.location}.
           </p>
           <div className="mt-10 flex flex-wrap gap-4">

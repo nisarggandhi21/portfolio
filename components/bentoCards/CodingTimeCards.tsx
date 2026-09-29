@@ -6,7 +6,7 @@ import CountUp from "react-countup";
 
 function CodingTimeCards() {
   const [seconds, setSeconds] = useState<number | null>(null);
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     const fetchCodingData = async () => {
@@ -15,7 +15,7 @@ function CodingTimeCards() {
         setSeconds(data.seconds);
       } catch (err) {
         console.error("Error fetching Wakatime stats:", err);
-        setError("Failed to load coding hours. Please try again later.");
+        setError(true);
       }
     };
 
@@ -27,7 +27,10 @@ function CodingTimeCards() {
   return (
     <div className="font-sans text-lg lg:text-3xl max-w-96 font-bold z-10 my-3">
       {error ? (
-        <p className="text-red-500">{error}</p>
+        // The whole card links to WakaTime, so point visitors there instead of showing an error
+        <p className="text-base lg:text-xl font-normal text-[#C1C2D3]">
+          View my stats on WakaTime &rarr;
+        </p>
       ) : hours !== null ? (
         <div>
           <CountUp start={0} end={hours} duration={2.5} separator="," />

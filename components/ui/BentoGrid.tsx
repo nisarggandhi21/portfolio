@@ -29,6 +29,7 @@ export const BentoGridItem = ({
   title,
   description,
   img,
+  imgAlt,
   imgClassName,
   titleClassName,
   spareImg,
@@ -38,6 +39,7 @@ export const BentoGridItem = ({
   title?: string | React.ReactNode;
   description?: string | React.ReactNode;
   img?: string;
+  imgAlt?: string;
   imgClassName?: string;
   titleClassName?: string;
   spareImg?: string;
@@ -53,8 +55,6 @@ export const BentoGridItem = ({
       )}
       style={{
         background: "#050505",
-        backgroundColor:
-          "linear-gradient(90deg, rgba(4,7,29,1) 0%, rgba(12,14,35,1) 100%)",
       }}
     >
       <div className={cn(id === 6 && "flex justify-center", "h-full")}>
@@ -62,7 +62,7 @@ export const BentoGridItem = ({
           {img && (
             <img
               src={img}
-              alt={img}
+              alt={imgAlt ?? ""}
               className={cn(
                 imgClassName,
                 "absolute right-0 top-1/2 -translate-y-1/2 object-cover object-center rounded-tl-[25px] rounded-bl-[25px]"
@@ -79,7 +79,7 @@ export const BentoGridItem = ({
           {spareImg && (
             <img
               src={spareImg}
-              alt={spareImg}
+              alt=""
               className="object-cover object-center w-full h-full"
             />
           )}
@@ -155,6 +155,7 @@ export const BentoGridItem = ({
             href="https://taste-of-home.nisarg-gandhi.com/"
             target="_blank"
             rel="noopener noreferrer"
+            aria-label="Visit the Taste of Home website"
             className="absolute inset-0 z-10"
           >
             {/* This makes the entire div clickable */}
@@ -167,6 +168,7 @@ export const BentoGridItem = ({
             href="https://wakatime.com/@nisarggandhi21"
             target="_blank"
             rel="noopener noreferrer"
+            aria-label="View my coding stats on WakaTime"
             className="absolute inset-0 z-10"
           >
             {/* This makes the entire div clickable */}

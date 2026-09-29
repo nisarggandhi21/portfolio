@@ -92,7 +92,8 @@ export function formatDate(
   date: string,
   month: "long" | "short" = "long",
 ): string {
-  return new Date(date).toLocaleDateString("en-GB", {
+  // e.g. "August 4, 2026"
+  return new Date(date).toLocaleDateString("en-US", {
     day: "numeric",
     month,
     year: "numeric",

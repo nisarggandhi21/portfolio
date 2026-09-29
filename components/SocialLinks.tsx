@@ -11,8 +11,11 @@ const icons: Record<string, IconType> = {
   X: FaXTwitter,
 };
 
-const SocialIcons = () => (
-  <div className="social-icons">
+const iconClass =
+  "h-6 w-6 fill-zinc-400 text-zinc-400 transition group-hover:fill-zinc-300 group-hover:text-zinc-300";
+
+const SocialLinks = () => (
+  <div className="flex gap-6">
     {profile.links.map((link) => {
       const Icon = icons[link.label];
       return (
@@ -21,10 +24,10 @@ const SocialIcons = () => (
           href={link.href}
           target="_blank"
           rel="noopener noreferrer me"
-          title={link.label}
           aria-label={link.label}
+          className="group -m-1 p-1"
         >
-          {Icon ? <Icon aria-hidden /> : link.label}
+          {Icon && <Icon aria-hidden className={iconClass} />}
         </a>
       );
     })}
@@ -32,15 +35,22 @@ const SocialIcons = () => (
       href={profile.wakatimeProfile}
       target="_blank"
       rel="noopener noreferrer"
-      title="WakaTime"
       aria-label="WakaTime"
+      className="group -m-1 p-1"
     >
-      <SiWakatime aria-hidden />
+      <SiWakatime aria-hidden className={iconClass} />
     </a>
-    <a href={`mailto:${profile.email}`} title="Email" aria-label="Email">
-      <FiMail aria-hidden />
+    <a
+      href={`mailto:${profile.email}`}
+      aria-label="Email"
+      className="group -m-1 p-1"
+    >
+      <FiMail
+        aria-hidden
+        className="h-6 w-6 text-zinc-400 transition group-hover:text-zinc-300"
+      />
     </a>
   </div>
 );
 
-export default SocialIcons;
+export default SocialLinks;

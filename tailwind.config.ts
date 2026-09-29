@@ -9,15 +9,16 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
-        serif: ["var(--font-literata)", "Georgia", "Cambria", "ui-serif", "serif"],
-        mono: ["var(--font-mono)", "ui-monospace", "monospace"],
+        sans: [
+          "var(--font-geist-sans)",
+          "ui-sans-serif",
+          "system-ui",
+          "sans-serif",
+        ],
+        mono: ["var(--font-geist-mono)", "ui-monospace", "monospace"],
       },
       colors: {
-        primary: "var(--content-primary)",
-        secondary: "var(--content-secondary)",
-        background: "var(--background)",
-        code: "var(--code-background)",
-        line: "var(--code-border)",
+        accent: "#7BA702",
       },
     },
   },

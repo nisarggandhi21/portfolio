@@ -10,7 +10,9 @@ export type Experience = {
   company: string;
   role: string;
   note?: string;
-  period: string;
+  // "YYYY-MM"
+  start: string;
+  end: string;
   location: string;
   projects: ExperienceProject[];
 };
@@ -21,7 +23,8 @@ export const workExperience: Experience[] = [
     company: "Withum",
     role: "Consultant",
     note: "Promoted from Analyst",
-    period: "Jul 2024 – Jun 2026",
+    start: "2024-07",
+    end: "2026-06",
     location: "Bengaluru, India",
     projects: [
       {
@@ -62,7 +65,8 @@ export const workExperience: Experience[] = [
     id: 2,
     company: "Walnut Folks",
     role: "Web Development Trainee",
-    period: "Feb 2024 – May 2024",
+    start: "2024-02",
+    end: "2024-05",
     location: "Bengaluru, India",
     projects: [
       {
@@ -79,7 +83,8 @@ export const workExperience: Experience[] = [
     id: 3,
     company: "Digitopia",
     role: "Web Development Intern",
-    period: "Feb 2022 – Apr 2022",
+    start: "2022-02",
+    end: "2022-04",
     location: "Remote",
     projects: [
       {
@@ -195,6 +200,7 @@ export const education = [
   {
     school: "PES University",
     degree: "Master of Computer Applications (MCA)",
+    shortDegree: "MCA",
     location: "Bengaluru",
     period: "Oct 2022 – Jun 2024",
   },

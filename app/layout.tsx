@@ -1,16 +1,17 @@
 import type { Metadata, Viewport } from "next";
-import { Geist_Mono, Literata } from "next/font/google";
+import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import Footer from "@/components/Footer";
+import Header from "@/components/Header";
 import { siteDescription, siteTitle, siteUrl } from "@/lib/site";
 
-const literata = Literata({
-  variable: "--font-literata",
+const geistSans = Geist({
+  variable: "--font-geist-sans",
   subsets: ["latin"],
-  style: ["normal", "italic"],
 });
 
-const mono = Geist_Mono({
-  variable: "--font-mono",
+const geistMono = Geist_Mono({
+  variable: "--font-geist-mono",
   subsets: ["latin"],
 });
 
@@ -48,7 +49,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#141414",
+  themeColor: "#000000",
   colorScheme: "dark",
 };
 
@@ -58,8 +59,23 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${literata.variable} ${mono.variable}`}>
-      <body>{children}</body>
+    <html
+      lang="en"
+      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+    >
+      <body className="flex h-full bg-black font-sans text-zinc-100">
+        {/* The outlined page panel behind the content */}
+        <div className="fixed inset-0 flex justify-center sm:px-8">
+          <div className="flex w-full max-w-7xl lg:px-8">
+            <div className="w-full bg-black ring-1 ring-zinc-300/20" />
+          </div>
+        </div>
+        <div className="relative flex w-full flex-col">
+          <Header />
+          <main className="flex-auto">{children}</main>
+          <Footer />
+        </div>
+      </body>
     </html>
   );
 }

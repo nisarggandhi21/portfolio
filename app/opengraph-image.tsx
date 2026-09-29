@@ -16,11 +16,11 @@ export default function OpengraphImage() {
         flexDirection: "column",
         justifyContent: "center",
         padding: "0 110px",
-        backgroundColor: "#141414",
-        color: "#DADADA",
+        backgroundColor: "#000000",
+        color: "#F4F4F5",
       }}
     >
-      <div style={{ width: 64, height: 3, backgroundColor: "#DADADA" }} />
+      <div style={{ width: 64, height: 3, backgroundColor: "#7BA702" }} />
       <div
         style={{
           fontSize: 104,
@@ -32,7 +32,7 @@ export default function OpengraphImage() {
       >
         Nisarg Gandhi
       </div>
-      <div style={{ fontSize: 42, color: "#8C8C8C", marginTop: 24 }}>
+      <div style={{ fontSize: 42, color: "#A1A1AA", marginTop: 24 }}>
         Full Stack Developer · Mumbai, India
       </div>
     </div>,

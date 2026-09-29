@@ -2,311 +2,129 @@
 @tailwind components;
 @tailwind utilities;
 
-/*
- * Visual style adapted from the Typo Hugo theme
- * https://github.com/tomfran/typo
- * Copyright (c) 2024 Francesco Tomaselli, MIT License
- */
-
-:root {
-  color-scheme: dark;
-
-  --content-primary: rgb(218, 218, 218);
-  --content-secondary: rgb(140, 140, 140);
-  --background: rgb(20, 20, 20);
-  --code-background: rgb(30, 30, 30);
-  --code-border: rgb(50, 50, 50);
-
-  --main-width: 780px;
-  --main-padding: 1.4em;
-  --header-top-gap: 2rem;
-}
-
-@media screen and (max-width: 1024px) {
-  :root {
-    --main-width: 750px;
-    --header-top-gap: 1rem;
-  }
-}
-
 @layer base {
+  :root {
+    color-scheme: dark;
+  }
+
   html {
     scroll-behavior: smooth;
   }
 
-  body {
-    font-family: var(--font-literata), Georgia, Cambria, ui-serif, serif;
-    font-weight: 300;
-    color: var(--content-primary);
-    background: var(--background);
-    -webkit-font-smoothing: antialiased;
-  }
-
-  strong,
-  b {
-    font-weight: 600;
-  }
-
-  a {
-    text-decoration: underline;
-    text-underline-offset: 0.15em;
-  }
-
   ::selection {
-    background: rgb(60, 60, 60);
+    background: rgb(123 167 2 / 0.35);
   }
 }
 
+/* Markdown content of blog posts */
 @layer components {
-  .typo-page {
-    max-width: var(--main-width);
-    margin: 0 auto;
-    padding: 0 var(--main-padding);
+  .article-content {
+    color: rgb(212 212 216); /* zinc-300 */
+    line-height: 1.75rem;
   }
 
-  /* Header */
-  .typo-header {
-    padding-top: var(--header-top-gap);
-    margin-bottom: 2rem;
+  .article-content > * + * {
+    margin-top: 1.25rem;
   }
 
-  .typo-header-title {
-    font-size: 2.6em;
+  .article-content h2 {
+    margin-top: 3rem;
+    font-size: 1.25rem;
+    line-height: 1.75rem;
     font-weight: 600;
-    line-height: 1.2;
+    color: rgb(244 244 245); /* zinc-100 */
   }
 
-  .typo-header-title a {
-    text-decoration: none;
-  }
-
-  .typo-menu {
-    display: flex;
-    flex-wrap: wrap;
-    padding-top: 1rem;
-    column-gap: 0.75rem;
-    row-gap: 0.25rem;
-    font-family: var(--font-mono), ui-monospace, monospace;
-    font-size: small;
-  }
-
-  /* Headings and text */
-  .typo-h1 {
-    font-size: 2em;
-    font-weight: 600;
-    line-height: 1.2;
+  .article-content h3,
+  .article-content h4 {
     margin-top: 2rem;
-    margin-bottom: 1.5rem;
-    scroll-margin-top: 1.5rem;
-  }
-
-  .typo-p {
-    margin-top: 1rem;
-    margin-bottom: 1rem;
-    line-height: 1.5em;
-  }
-
-  .typo-small {
-    font-size: small;
-    color: var(--content-secondary);
-  }
-
-  .typo-mono {
-    font-family: var(--font-mono), ui-monospace, monospace;
-  }
-
-  /* Date + content rows, used for posts, jobs and education */
-  .post-line {
-    display: flex;
-    align-items: baseline;
-    margin-bottom: 0.5rem;
-  }
-
-  .line-date {
-    font-size: small;
-    font-family: var(--font-mono), ui-monospace, monospace;
-    min-width: 120px;
-    max-width: 120px;
-    text-align: right;
-    padding-right: 1rem;
-    flex-shrink: 0;
-  }
-
-  .line-summary {
-    font-size: small;
-    margin-top: 0.2rem;
-    color: var(--content-secondary);
-    line-height: 1.5em;
-  }
-
-  /* Social icons */
-  .social-icons {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
-    padding: 12px 0;
-  }
-
-  .social-icons a {
-    text-decoration: none;
-    color: var(--content-primary);
-    transition: color 0.15s;
-  }
-
-  .social-icons a:hover {
-    color: var(--content-secondary);
-  }
-
-  .social-icons svg {
-    height: 20px;
-    width: 20px;
-  }
-
-  .typo-list {
-    list-style: disc;
-    padding-left: 2rem;
-  }
-
-  .typo-list li {
-    margin-top: 0.3rem;
-    line-height: 1.5em;
-  }
-
-  /* Footer */
-  .typo-footer {
-    font-size: small;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    gap: 0.4rem;
-    min-height: 3rem;
-    padding: 1rem 0;
-  }
-
-  .typo-footer a {
-    font-family: var(--font-mono), ui-monospace, monospace;
-  }
-
-  /* Markdown content of blog posts */
-  .typo-content h2 {
-    font-size: 1.8em;
+    font-size: 1.05rem;
     font-weight: 600;
-    line-height: 1.25;
-    margin-top: 2rem;
-    margin-bottom: 1.5rem;
+    color: rgb(244 244 245);
   }
 
-  .typo-content h3,
-  .typo-content h4,
-  .typo-content h5,
-  .typo-content h6 {
-    font-size: 1.3em;
+  .article-content strong {
     font-weight: 600;
-    line-height: 1.3;
-    margin-top: 1.5rem;
-    margin-bottom: 1rem;
+    color: rgb(244 244 245);
   }
 
-  .typo-content p {
-    margin-top: 1rem;
-    margin-bottom: 1rem;
-    line-height: 1.5em;
+  .article-content a {
+    color: #7ba702;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    text-decoration-color: rgb(123 167 2 / 0.4);
   }
 
-  .typo-content ul,
-  .typo-content ol {
-    margin-top: 1rem;
-    margin-bottom: 1rem;
-    padding-left: 2rem;
+  .article-content a:hover {
+    text-decoration-color: #7ba702;
   }
 
-  .typo-content ul {
+  .article-content ul,
+  .article-content ol {
+    padding-left: 1.5rem;
+  }
+
+  .article-content ul {
     list-style: disc;
   }
 
-  .typo-content ol {
+  .article-content ol {
     list-style: decimal;
   }
 
-  .typo-content li {
-    margin-top: 0.25rem;
-    line-height: 1.5em;
+  .article-content li + li {
+    margin-top: 0.5rem;
   }
 
-  .typo-content blockquote {
-    margin: 1.5rem 0;
-    padding-left: 1rem;
-    border-left: 2px solid var(--code-border);
-    color: var(--content-secondary);
+  .article-content li::marker {
+    color: rgb(113 113 122); /* zinc-500 */
   }
 
-  .typo-content pre {
-    padding: 1.5rem;
-    margin-top: 2rem;
-    margin-bottom: 2rem;
-    border: 1px solid var(--code-border);
-    border-radius: 10px;
-    background: var(--code-background);
+  .article-content blockquote {
+    padding-left: 1.25rem;
+    border-left: 2px solid rgb(63 63 70); /* zinc-700 */
+    color: rgb(161 161 170); /* zinc-400 */
+  }
+
+  .article-content pre {
+    padding: 1.25rem 1.5rem;
+    border-radius: 1rem;
+    background: rgb(24 24 27); /* zinc-900 */
+    border: 1px solid rgb(63 63 70 / 0.4);
     overflow-x: auto;
-    line-height: 1.3em;
+    font-size: 0.875rem;
+    line-height: 1.5rem;
   }
 
-  .typo-content code {
-    font-family: var(--font-mono), ui-monospace, monospace;
-    font-size: 0.9em;
+  .article-content code {
+    font-family: var(--font-geist-mono), ui-monospace, monospace;
+    font-size: 0.875em;
   }
 
-  .typo-content :not(pre) > code {
-    background-color: var(--code-background);
-    border-radius: 3px;
-    padding: 2px;
+  .article-content :not(pre) > code {
+    padding: 0.125rem 0.375rem;
+    border-radius: 0.375rem;
+    background: rgb(39 39 42); /* zinc-800 */
   }
 
-  .typo-content img {
-    max-width: 100%;
-    margin: 2rem auto;
-    border-radius: 6px;
+  .article-content img {
+    border-radius: 1rem;
   }
 
-  .typo-content hr {
-    border: none;
-    height: 1px;
-    background: var(--content-secondary);
-    margin: 2rem 0;
+  .article-content hr {
+    border-color: rgb(63 63 70 / 0.4);
+    margin: 3rem 0;
   }
 
-  .typo-content table {
-    margin: 2rem 0;
-    border-collapse: collapse;
+  .article-content table {
     width: 100%;
+    font-size: 0.875rem;
   }
 
-  .typo-content th,
-  .typo-content td {
+  .article-content th,
+  .article-content td {
     padding: 0.5rem;
-    border-bottom: 1px solid var(--code-border);
+    border-bottom: 1px solid rgb(63 63 70 / 0.6);
     text-align: left;
-  }
-}
-
-/* Phones: stack dates above their content */
-@media screen and (max-width: 640px) {
-  .post-line {
-    flex-direction: column;
-    gap: 0.1rem;
-    margin-bottom: 1rem;
-  }
-
-  .line-date {
-    min-width: 0;
-    max-width: none;
-    text-align: left;
-    padding-right: 0;
-    color: var(--content-secondary);
-  }
-
-  .typo-header-title {
-    font-size: 2.2em;
   }
 }

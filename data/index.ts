@@ -229,7 +229,8 @@ export const profile = {
   summary:
     "Full Stack Developer with 2.7 years of experience architecting scalable web applications using React.js, Next.js, and Node.js, currently building LLM-powered features (RAG, LangChain) in production. Promoted within 12 months at Withum for delivering high-impact solutions across frontend, backend, and DevOps for US tax auditing workflows.",
   // Shown as the quote in the homepage experience card
-  highlight: "Promoted from Analyst to Consultant at Withum within 12 months.",
+  highlight:
+    "Raised the Sugar Cosmetics storefront's Lighthouse score from 62 to 90+ and cut LCP by 40%.",
   wakatimeProfile: "https://wakatime.com/@nisarggandhi21",
   links: [
     { label: "GitHub", href: "https://github.com/nisarggandhi21" },

@@ -125,16 +125,18 @@ export default function WorkPage() {
         </Section>
 
         <Section title="Education">
-          {education.map((item) => (
-            <div key={item.school}>
-              <p className="text-sm font-semibold text-zinc-200">
-                {item.degree}
-              </p>
-              <p className="mt-1 text-sm leading-6 text-zinc-400">
-                {item.school}, {item.location} · {item.period}
-              </p>
-            </div>
-          ))}
+          <div className="space-y-4">
+            {education.map((item) => (
+              <div key={item.school}>
+                <p className="text-sm font-semibold text-zinc-200">
+                  {item.degree}
+                </p>
+                <p className="mt-1 text-sm leading-6 text-zinc-400">
+                  {item.school}, {item.location} · {item.period}
+                </p>
+              </div>
+            ))}
+          </div>
         </Section>
       </div>
     </PageIntro>

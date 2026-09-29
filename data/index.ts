@@ -209,4 +209,12 @@ export const education = [
     location: "Bengaluru",
     period: "Oct 2022 – Jun 2024",
   },
+  {
+    school: "S K Somaiya Degree College",
+    logo: "/logos/sk-somaiya.svg",
+    degree: "Bachelor of Computer Applications (BCA)",
+    shortDegree: "BCA",
+    location: "Mumbai",
+    period: "2019 – 2022",
+  },
 ];

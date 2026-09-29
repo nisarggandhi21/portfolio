@@ -2,6 +2,7 @@ import type { Config } from "tailwindcss";
 import type { PluginAPI } from "tailwindcss/types/config";
 import svgToDataUri from "mini-svg-data-uri";
 import tailwindcssAnimate from "tailwindcss-animate";
+import tailwindcssTypography from "@tailwindcss/typography";
 
 const config: Config = {
   darkMode: ["class"],
@@ -160,6 +161,7 @@ const config: Config = {
   },
   plugins: [
     tailwindcssAnimate,
+    tailwindcssTypography,
     addVariablesForColors,
     function ({ matchUtilities, theme }: PluginAPI) {
       matchUtilities(

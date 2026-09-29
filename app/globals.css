@@ -91,3 +91,9 @@
 .group-social:hover .social {
   transform: translateX(0) !important;
 }
+
+/* Blog posts: show blockquotes as written, without auto-inserted quote marks */
+.prose blockquote p:first-of-type::before,
+.prose blockquote p:last-of-type::after {
+  content: none;
+}

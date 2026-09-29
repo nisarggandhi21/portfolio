@@ -1,64 +1,34 @@
-import { FaLocationArrow } from "react-icons/fa6";
+import Link from "next/link";
 
-import { socialMedia } from "@/data";
+import Container from "./Container";
 import CurrentYear from "./CurrentYear";
-import MagicButton from "./MagicButton";
+import { navItems } from "./navigation";
+import { profile } from "@/data";
 
-const Footer = () => {
-  return (
-    <footer className="w-full pt-20 pb-10" id="contact">
-      {/* background grid */}
-      <div className="w-full absolute left-0 -bottom-72 min-h-96">
-        <img
-          src="/footer-grid.svg"
-          alt=""
-          className="w-full h-full opacity-50 "
-        />
-      </div>
-
-      <div className="flex flex-col items-center">
-        <h1 className="heading lg:max-w-[45vw]">
-          Want to connect? <span className="text-purple">Let&apos;s talk</span> tech,
-          code or anything in between!
-        </h1>
-        <p className="text-white-200 md:mt-10 my-5 text-center">
-          Feel free to reach out—whether it&apos;s to chat about development, share
-          ideas, or just say hi.
-        </p>
-        <a href="mailto:nisarggandhi21@gmail.com">
-          <MagicButton
-            title="Contact Me"
-            icon={<FaLocationArrow />}
-            position="right"
-          />
-        </a>
-      </div>
-      <div className="flex mt-16 md:flex-row flex-col justify-between items-center">
-        <p className="md:text-base text-sm md:font-normal font-light">
-          Copyright ©{" "}
-          <CurrentYear initialYear={new Date().getFullYear()} /> Nisarg Gandhi
-        </p>
-
-        <div className="flex items-center md:gap-3 gap-6 pt-3 md:pt-0 lg:pt-0">
-          {socialMedia.map((info) => (
-            <div
-              key={info.id}
-              className="w-10 h-10 cursor-pointer flex justify-center items-center backdrop-filter backdrop-blur-lg saturate-180 bg-opacity-75 bg-black-200 rounded-lg border border-black-300"
-            >
-              <a
-                href={info.link}
-                target="_blank"
-                rel="noreferrer"
-                aria-label={info.name}
+const Footer = () => (
+  <footer className="mt-32 flex-none">
+    <div className="border-t border-zinc-700/40 pb-16 pt-10">
+      <Container>
+        <div className="flex flex-col items-center justify-between gap-6 md:flex-row">
+          <div className="flex flex-wrap justify-center gap-x-6 gap-y-1 text-sm font-medium text-zinc-200">
+            {navItems.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                className="transition hover:text-accent"
               >
-                <img src={info.img} alt="" width={20} height={20} />
-              </a>
-            </div>
-          ))}
+                {item.name}
+              </Link>
+            ))}
+          </div>
+          <p className="text-sm text-zinc-500">
+            © <CurrentYear initialYear={new Date().getFullYear()} />{" "}
+            {profile.name}. All rights reserved.
+          </p>
         </div>
-      </div>
-    </footer>
-  );
-};
+      </Container>
+    </div>
+  </footer>
+);
 
 export default Footer;

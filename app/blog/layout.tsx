@@ -1,4 +1,5 @@
-import TopBar from "@/components/resume/TopBar";
+import SiteFooter from "@/components/SiteFooter";
+import SiteHeader from "@/components/SiteHeader";
 
 export default function BlogLayout({
   children,
@@ -6,9 +7,10 @@ export default function BlogLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="mx-auto max-w-3xl px-5 sm:px-8">
-      <TopBar showBlog />
-      <main className="pb-24">{children}</main>
+    <div className="typo-page">
+      <SiteHeader current="writing" />
+      <main className="min-h-[60vh] pb-16">{children}</main>
+      <SiteFooter />
     </div>
   );
 }

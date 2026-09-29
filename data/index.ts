@@ -1,80 +1,3 @@
-export const gridItems = [
-  {
-    id: 1,
-    title: "Socials",
-    description: "",
-    className: "lg:col-span-3 md:col-span-6 md:row-span-4 lg:min-h-[60vh]",
-    imgClassName: "",
-    titleClassName: "justify-center",
-    img: "",
-    spareImg: "",
-  },
-  {
-    id: 2,
-    title: "",
-    description: "",
-    className: "lg:col-span-2 md:col-span-3 md:row-span-2",
-    imgClassName: "justify-start",
-    titleClassName: "",
-    img: "./bot.jpg",
-    imgAlt: "Illustration of a robot coding at a computer",
-    spareImg: "",
-  },
-  {
-    id: 3,
-    title: "My Core Tools",
-    description: "",
-    className: "lg:col-span-2 md:col-span-3 md:row-span-2",
-    imgClassName: "",
-    titleClassName: "justify-center",
-    img: "",
-    spareImg: "",
-  },
-  {
-    id: 4,
-    title: "Coding Milestones: ",
-    description: "((wakatime))",
-    className: "lg:col-span-2 md:col-span-3 md:row-span-1",
-    imgClassName: "",
-    titleClassName: "justify-start",
-    img: "/grid.svg",
-    spareImg: "/b4.svg",
-  },
-  {
-    id: 5,
-    title: "Taste of Home",
-    description: "Project in Motion",
-    className: "md:col-span-3 md:row-span-2",
-    imgClassName: "absolute right-0 bottom-0 md:w-96 w-60",
-    titleClassName: "justify-center md:justify-start lg:justify-center",
-    img: "/TOH.png",
-    imgAlt: "Screenshot of the Taste of Home website",
-    spareImg: "/grid.svg",
-  },
-  {
-    id: 6,
-    title: "Lets Connect",
-    description: "",
-    className: "lg:col-span-2 md:col-span-3 md:row-span-1",
-    imgClassName: "",
-    titleClassName: "justify-center md:max-w-full max-w-60 text-center",
-    img: "",
-    spareImg: "",
-  },
-];
-
-export type Project = {
-  id: number;
-  title: string;
-  des: string;
-  img: string;
-  iconLists: string[];
-  link: string;
-};
-
-// Add your own projects here and re-enable <RecentProjects /> in app/page.tsx
-export const projects: Project[] = [];
-
 export type ExperienceProject = {
   name: string;
   stack: string[];
@@ -230,31 +153,6 @@ export const skillGroups = [
   },
 ];
 
-export const socialMedia = [
-  {
-    id: 1,
-    name: "GitHub",
-    img: "/git.svg",
-    link: "https://github.com/nisarggandhi21",
-  },
-  {
-    id: 2,
-    name: "X (Twitter)",
-    img: "/twit.svg",
-    link: "https://x.com/nisarggandhi21",
-  },
-  {
-    id: 3,
-    name: "LinkedIn",
-    img: "/link.svg",
-    link: "https://linkedin.com/in/nisarggandhi21",
-  },
-];
-
-// ---------------------------------------------------------------------------
-// Resume-style homepage
-// ---------------------------------------------------------------------------
-
 export const profile = {
   name: "Nisarg Gandhi",
   title: "Full Stack Developer",
@@ -264,9 +162,10 @@ export const profile = {
   email: "nisarggandhi21@gmail.com",
   summary:
     "Full Stack Developer with 2.7 years of experience building scalable web applications using React.js, Next.js, and Node.js. Promoted within 12 months at Withum for delivering high-impact solutions across frontend, backend, and DevOps, including US tax auditing workflows.",
+  wakatimeProfile: "https://wakatime.com/@nisarggandhi21",
   links: [
-    { label: "LinkedIn", href: "https://www.linkedin.com/in/nisarggandhi21/" },
     { label: "GitHub", href: "https://github.com/nisarggandhi21" },
+    { label: "LinkedIn", href: "https://www.linkedin.com/in/nisarggandhi21/" },
     { label: "X", href: "https://x.com/nisarggandhi21" },
   ],
 };

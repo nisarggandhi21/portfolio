@@ -45,7 +45,9 @@ function readPost(file: string): Post {
   const { data, content } = matter(raw);
 
   if (!data.title || !data.date) {
-    throw new Error(`content/blog/${file} needs a "title" and a "date" in its front matter`);
+    throw new Error(
+      `content/blog/${file} needs a "title" and a "date" in its front matter`,
+    );
   }
 
   const words = content.trim().split(/\s+/).length;
@@ -86,10 +88,13 @@ export function getPostBySlug(slug: string): Post | null {
   return readPost(file);
 }
 
-export function formatDate(date: string): string {
-  return new Date(date).toLocaleDateString("en-IN", {
+export function formatDate(
+  date: string,
+  month: "long" | "short" = "long",
+): string {
+  return new Date(date).toLocaleDateString("en-GB", {
     day: "numeric",
-    month: "long",
+    month,
     year: "numeric",
     timeZone: "UTC",
   });

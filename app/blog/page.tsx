@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+
+import PostLine from "@/components/PostLine";
 import { formatDate, getAllPosts } from "@/lib/blog";
 
 const description =
@@ -21,49 +23,20 @@ export default function BlogPage() {
 
   return (
     <>
-      <header className="border-b border-border pb-10 pt-10 md:pt-16">
-        <h1 className="font-serif text-5xl tracking-tight md:text-7xl">
-          Writing
-        </h1>
-        <p className="mt-4 max-w-2xl text-lg leading-relaxed text-foreground/80">
-          Thoughts on software development, AI and things I&apos;ve learned
-          along the way.
-        </p>
-      </header>
-
+      <h1 className="typo-h1">Writing</h1>
       {posts.length === 0 ? (
-        <p className="mt-12 text-muted-foreground">
-          Posts are on their way. Check back soon!
-        </p>
+        <p className="typo-p">Posts are on their way. Check back soon!</p>
       ) : (
-        <ul className="divide-y divide-border">
-          {posts.map((post) => (
-            <li key={post.slug}>
-              <Link
-                href={`/blog/${post.slug}`}
-                className="group grid gap-2 py-8 md:grid-cols-[9rem_1fr] md:gap-10"
-              >
-                <p className="text-sm tabular-nums text-muted-foreground md:pt-1.5">
-                  {formatDate(post.date)}
-                </p>
-                <div>
-                  <h2 className="font-serif text-2xl leading-snug underline-offset-4 decoration-border group-hover:underline md:text-3xl">
-                    {post.title}
-                  </h2>
-                  {post.description && (
-                    <p className="mt-2 leading-relaxed text-foreground/80">
-                      {post.description}
-                    </p>
-                  )}
-                  <p className="mt-3 text-sm text-muted-foreground">
-                    {post.readingTime} min read
-                    {post.tags.length > 0 && ` · ${post.tags.join(", ")}`}
-                  </p>
-                </div>
-              </Link>
-            </li>
-          ))}
-        </ul>
+        posts.map((post) => (
+          <PostLine key={post.slug} date={formatDate(post.date, "short")}>
+            <p>
+              <Link href={`/blog/${post.slug}`}>{post.title}</Link>
+            </p>
+            {post.description && (
+              <p className="line-summary">{post.description}</p>
+            )}
+          </PostLine>
+        ))
       )}
     </>
   );

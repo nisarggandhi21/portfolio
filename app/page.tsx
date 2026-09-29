@@ -1,166 +1,184 @@
-import { FiArrowUpRight, FiMail } from "react-icons/fi";
+import Link from "next/link";
 
-import CurrentYear from "@/components/CurrentYear";
-import ExperienceList from "@/components/resume/ExperienceList";
-import Section from "@/components/resume/Section";
-import SkillsList from "@/components/resume/SkillsList";
-import TopBar from "@/components/resume/TopBar";
-import WritingList from "@/components/resume/WritingList";
-import { awards, education, personalProjects, profile } from "@/data";
-import { getAllPosts } from "@/lib/blog";
+import Emphasis from "@/components/Emphasis";
+import Period from "@/components/Period";
+import PostLine from "@/components/PostLine";
+import SiteFooter from "@/components/SiteFooter";
+import SiteHeader from "@/components/SiteHeader";
+import SocialIcons from "@/components/SocialIcons";
+import {
+  awards,
+  education,
+  personalProjects,
+  profile,
+  skillGroups,
+  workExperience,
+} from "@/data";
+import { formatDate, getAllPosts } from "@/lib/blog";
+import { getCodingHours } from "@/lib/wakatime";
 
-const linkClass =
-  "underline underline-offset-4 decoration-border transition hover:decoration-foreground";
+// Re-render at most once an hour so the WakaTime coding hours stay current
+export const revalidate = 3600;
 
-export default function Home() {
+export default async function Home() {
   const posts = getAllPosts();
+  const codingHours = await getCodingHours();
 
   return (
-    <div className="mx-auto max-w-3xl px-5 sm:px-8">
-      <TopBar showBlog={posts.length > 0} />
+    <div className="typo-page">
+      <SiteHeader isHome />
 
       <main>
         {/* Intro */}
-        <header className="pb-14 pt-10 md:pt-16">
-          {profile.availability && (
-            <p className="mb-6 inline-flex items-center gap-2 rounded-full border border-border px-3 py-1 text-xs text-muted-foreground">
-              <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
-              {profile.availability}
-            </p>
-          )}
-          <h1 className="font-serif text-6xl leading-[1.05] tracking-tight md:text-8xl">
-            {profile.name}
-          </h1>
-          <p className="mt-4 text-lg text-muted-foreground md:text-xl">
-            {profile.title} · {profile.location}
+        <section>
+          <h2 className="typo-h1">Hi, I&apos;m Nisarg 👋</h2>
+          <p className="typo-p">{profile.summary}</p>
+          <p className="typo-p">
+            Based in {profile.location}
+            {profile.availability && (
+              <>
+                , and currently{" "}
+                <strong>{profile.availability.toLowerCase()}</strong>
+              </>
+            )}
+            .
           </p>
-          <p className="mt-8 max-w-2xl text-lg leading-relaxed text-foreground/85">
-            {profile.summary}
-          </p>
-
-          <div className="mt-8 flex flex-wrap items-center gap-x-4 gap-y-3 text-sm sm:gap-x-6">
+          <SocialIcons />
+          <p className="typo-small typo-mono">
+            {codingHours !== null ? (
+              <>
+                {codingHours.toLocaleString("en-IN")} hours of coding tracked
+                on{" "}
+              </>
+            ) : (
+              <>Coding activity tracked on </>
+            )}
             <a
-              href={`mailto:${profile.email}`}
-              className="inline-flex items-center gap-2 rounded-full bg-foreground px-5 py-2.5 font-medium text-background transition hover:opacity-85"
-            >
-              <FiMail aria-hidden />
-              Get in touch
-            </a>
-            {profile.links.map((link) => (
-              <a
-                key={link.label}
-                href={link.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-1 text-muted-foreground transition hover:text-foreground"
-              >
-                {link.label}
-                <FiArrowUpRight aria-hidden className="text-xs" />
-              </a>
-            ))}
-          </div>
-        </header>
-
-        <Section id="experience" title="Experience">
-          <ExperienceList />
-        </Section>
-
-        <Section id="skills" title="Skills">
-          <SkillsList />
-        </Section>
-
-        {posts.length > 0 && (
-          <Section id="writing" title="Writing">
-            <WritingList posts={posts.slice(0, 4)} />
-          </Section>
-        )}
-
-        <Section id="projects" title="Projects">
-          <ul className="space-y-4">
-            {personalProjects.map((project) => (
-              <li key={project.name}>
-                <a
-                  href={project.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={`inline-flex items-center gap-1 font-medium ${linkClass}`}
-                >
-                  {project.name}
-                  <FiArrowUpRight aria-hidden className="text-xs" />
-                </a>
-                <p className="mt-1 leading-relaxed text-foreground/80">
-                  {project.description}
-                </p>
-              </li>
-            ))}
-          </ul>
-        </Section>
-
-        <Section id="recognition" title="Recognition">
-          <ul className="space-y-4">
-            {awards.map((award) => (
-              <li key={award.title}>
-                <p className="font-medium">{award.title}</p>
-                <p className="mt-1 leading-relaxed text-foreground/80">
-                  {award.detail}
-                </p>
-              </li>
-            ))}
-          </ul>
-        </Section>
-
-        <Section id="education" title="Education">
-          {education.map((item) => (
-            <div key={item.school}>
-              <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1">
-                <p className="font-medium">{item.school}</p>
-                <p className="text-sm tabular-nums text-muted-foreground">
-                  {item.period}
-                </p>
-              </div>
-              <p className="mt-1 text-foreground/80">
-                {item.degree} · {item.location}
-              </p>
-            </div>
-          ))}
-        </Section>
-
-        <Section id="contact" title="Contact">
-          <p className="font-serif text-3xl leading-snug md:text-4xl">
-            Let&apos;s build something together.
-          </p>
-          <p className="mt-3 leading-relaxed text-foreground/80">
-            I&apos;m always happy to talk about new roles, projects, or anything
-            web and AI. The fastest way to reach me is email.
-          </p>
-          <a
-            href={`mailto:${profile.email}`}
-            className={`mt-5 inline-block text-lg font-medium ${linkClass}`}
-          >
-            {profile.email}
-          </a>
-        </Section>
-      </main>
-
-      <footer className="flex flex-col gap-3 border-t border-border py-8 text-sm text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
-        <p>
-          © <CurrentYear initialYear={new Date().getFullYear()} />{" "}
-          {profile.name}
-        </p>
-        <div className="flex gap-5 print:hidden">
-          {profile.links.map((link) => (
-            <a
-              key={link.label}
-              href={link.href}
+              href={profile.wakatimeProfile}
               target="_blank"
               rel="noopener noreferrer"
-              className="transition hover:text-foreground"
             >
-              {link.label}
+              WakaTime
             </a>
+          </p>
+        </section>
+
+        <section id="experience" className="scroll-mt-6">
+          <h2 className="typo-h1">Experience</h2>
+          <div className="space-y-10">
+            {workExperience.map((job) => (
+              <PostLine key={job.id} date={<Period period={job.period} />}>
+                <p className="leading-[1.5em]">
+                  <strong>{job.role}</strong> at {job.company}
+                </p>
+                <p className="line-summary">
+                  {job.note && `${job.note} · `}
+                  {job.location}
+                </p>
+                {job.projects.map((project) => (
+                  <div key={project.name} className="mt-4">
+                    <p className="leading-[1.5em]">
+                      <em>{project.name}</em>{" "}
+                      <span className="typo-small typo-mono">
+                        · {project.stack.join(", ")}
+                      </span>
+                    </p>
+                    <ul className="typo-list">
+                      {project.points.map((point) => (
+                        <li key={point}>
+                          <Emphasis text={point} />
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
+              </PostLine>
+            ))}
+          </div>
+        </section>
+
+        <section id="skills" className="scroll-mt-6">
+          <h2 className="typo-h1">Skills</h2>
+          {skillGroups.map((group) => (
+            <p key={group.title} className="my-2 leading-[1.5em]">
+              <strong>{group.title}:</strong> {group.skills.join(", ")}
+            </p>
           ))}
-        </div>
-      </footer>
+        </section>
+
+        {posts.length > 0 && (
+          <section id="writing" className="scroll-mt-6">
+            <h2 className="typo-h1">Writing</h2>
+            {posts.slice(0, 5).map((post) => (
+              <PostLine key={post.slug} date={formatDate(post.date, "short")}>
+                <p>
+                  <Link href={`/blog/${post.slug}`}>{post.title}</Link>
+                </p>
+                {post.description && (
+                  <p className="line-summary">{post.description}</p>
+                )}
+              </PostLine>
+            ))}
+            <p className="typo-small typo-mono mt-4">
+              <Link href="/blog">all posts →</Link>
+            </p>
+          </section>
+        )}
+
+        <section id="projects" className="scroll-mt-6">
+          <h2 className="typo-h1">Projects</h2>
+          {personalProjects.map((project) => (
+            <p key={project.name} className="my-2 leading-[1.5em]">
+              <a href={project.href} target="_blank" rel="noopener noreferrer">
+                {project.name}
+              </a>{" "}
+              — {project.description}
+            </p>
+          ))}
+        </section>
+
+        <section id="recognition" className="scroll-mt-6">
+          <h2 className="typo-h1">Recognition</h2>
+          <ul className="typo-list">
+            {awards.map((award) => (
+              <li key={award.title}>
+                <strong>{award.title}</strong> — {award.detail}
+              </li>
+            ))}
+          </ul>
+        </section>
+
+        <section id="education" className="scroll-mt-6">
+          <h2 className="typo-h1">Education</h2>
+          {education.map((item) => (
+            <PostLine key={item.school} date={<Period period={item.period} />}>
+              <p className="leading-[1.5em]">
+                <strong>{item.degree}</strong>, {item.school}
+              </p>
+              <p className="line-summary">{item.location}</p>
+            </PostLine>
+          ))}
+        </section>
+
+        <section id="contact" className="scroll-mt-6 pb-12">
+          <h2 className="typo-h1">Contact</h2>
+          <p className="typo-p">
+            Want to talk about a role, a project, or anything web and AI? Email
+            me at <a href={`mailto:${profile.email}`}>{profile.email}</a> or
+            reach out on{" "}
+            <a
+              href={profile.links.find((l) => l.label === "LinkedIn")?.href}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              LinkedIn
+            </a>
+            .
+          </p>
+        </section>
+      </main>
+
+      <SiteFooter />
     </div>
   );
 }

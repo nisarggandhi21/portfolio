@@ -3,7 +3,6 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-import { FaLinkedin, FaMedium } from "react-icons/fa";
 import { formatDate, getAllPosts, getPostBySlug } from "@/lib/blog";
 
 // Only the posts in content/blog exist; anything else is a 404
@@ -44,49 +43,45 @@ export default async function BlogPostPage({ params }: Props) {
   if (!post) notFound();
 
   return (
-    <article className="pt-10 md:pt-16">
-      <Link
-        href="/blog"
-        className="text-sm text-muted-foreground transition hover:text-foreground"
-      >
-        &larr; All posts
-      </Link>
-
-      <header className="mt-8 border-b border-border pb-8">
-        <h1 className="font-serif text-4xl leading-[1.1] md:text-6xl">
-          {post.title}
-        </h1>
-        <div className="mt-5 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-muted-foreground">
-          <span className="tabular-nums">
-            {formatDate(post.date)} · {post.readingTime} min read
-          </span>
-          {post.originalUrl && (
+    <article>
+      <h1 className="typo-h1 mb-2">{post.title}</h1>
+      <p className="typo-small">
+        {formatDate(post.date)} · {post.readingTime} min read
+        {post.originalUrl && (
+          <>
+            {" · "}
             <a
               href={post.originalUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 transition hover:text-foreground"
             >
-              {post.originalSource === "LinkedIn" && <FaLinkedin aria-hidden />}
-              {post.originalSource === "Medium" && <FaMedium aria-hidden />}
-              Originally published on {post.originalSource}
+              originally on {post.originalSource}
             </a>
-          )}
-        </div>
-      </header>
+          </>
+        )}
+      </p>
+      {post.tags.length > 0 && (
+        <p className="typo-small typo-mono mt-1">
+          {post.tags
+            .map((tag) => `#${tag.replace(/\s+/g, "-").toLowerCase()}`)
+            .join(" ")}
+        </p>
+      )}
 
       {post.coverImage && (
         // eslint-disable-next-line @next/next/no-img-element
-        <img
-          src={post.coverImage}
-          alt=""
-          className="mt-8 w-full rounded-lg border border-border"
-        />
+        <img src={post.coverImage} alt="" className="mt-8 w-full rounded-md" />
       )}
 
-      <div className="prose prose-stone dark:prose-invert md:prose-lg mt-10 max-w-none prose-headings:font-serif prose-headings:font-normal prose-a:underline-offset-4 prose-img:rounded-lg prose-pre:border prose-pre:border-border prose-pre:bg-card prose-pre:text-foreground">
-        <ReactMarkdown remarkPlugins={[remarkGfm]}>{post.content}</ReactMarkdown>
+      <div className="typo-content mt-8">
+        <ReactMarkdown remarkPlugins={[remarkGfm]}>
+          {post.content}
+        </ReactMarkdown>
       </div>
+
+      <p className="typo-small typo-mono mt-12">
+        <Link href="/blog">← all posts</Link>
+      </p>
     </article>
   );
 }

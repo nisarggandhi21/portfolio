@@ -2,98 +2,311 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
+/*
+ * Visual style adapted from the Typo Hugo theme
+ * https://github.com/tomfran/typo
+ * Copyright (c) 2024 Francesco Tomaselli, MIT License
+ */
+
+:root {
+  color-scheme: dark;
+
+  --content-primary: rgb(218, 218, 218);
+  --content-secondary: rgb(140, 140, 140);
+  --background: rgb(20, 20, 20);
+  --code-background: rgb(30, 30, 30);
+  --code-border: rgb(50, 50, 50);
+
+  --main-width: 780px;
+  --main-padding: 1.4em;
+  --header-top-gap: 2rem;
+}
+
+@media screen and (max-width: 1024px) {
   :root {
-    --background: 45 25% 97%;
-    --foreground: 24 10% 10%;
-
-    --card: 45 20% 99%;
-    --card-foreground: 24 10% 10%;
-
-    --popover: 45 20% 99%;
-    --popover-foreground: 24 10% 10%;
-
-    --primary: 24 10% 10%;
-    --primary-foreground: 45 25% 97%;
-
-    --secondary: 40 12% 92%;
-    --secondary-foreground: 24 10% 10%;
-
-    --muted: 40 12% 92%;
-    --muted-foreground: 25 6% 42%;
-
-    --accent: 40 12% 92%;
-    --accent-foreground: 24 10% 10%;
-
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 98%;
-
-    --border: 32 10% 87%;
-    --input: 32 10% 87%;
-    --ring: 24 10% 10%;
-
-    --radius: 0.5rem;
-  }
-
-  .dark {
-    --background: 24 8% 7%;
-    --foreground: 40 15% 92%;
-
-    --card: 24 8% 10%;
-    --card-foreground: 40 15% 92%;
-
-    --popover: 24 8% 10%;
-    --popover-foreground: 40 15% 92%;
-
-    --primary: 40 15% 92%;
-    --primary-foreground: 24 8% 7%;
-
-    --secondary: 24 6% 15%;
-    --secondary-foreground: 40 15% 92%;
-
-    --muted: 24 6% 15%;
-    --muted-foreground: 30 6% 62%;
-
-    --accent: 24 6% 15%;
-    --accent-foreground: 40 15% 92%;
-
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 0% 98%;
-
-    --border: 24 6% 18%;
-    --input: 24 6% 18%;
-    --ring: 40 15% 92%;
+    --main-width: 750px;
+    --header-top-gap: 1rem;
   }
 }
 
 @layer base {
-  * {
-    @apply border-border !scroll-smooth;
+  html {
+    scroll-behavior: smooth;
   }
+
   body {
-    @apply bg-background text-foreground;
+    font-family: var(--font-literata), Georgia, Cambria, ui-serif, serif;
+    font-weight: 300;
+    color: var(--content-primary);
+    background: var(--background);
+    -webkit-font-smoothing: antialiased;
   }
-  button {
-    @apply active:outline-none;
+
+  strong,
+  b {
+    font-weight: 600;
+  }
+
+  a {
+    text-decoration: underline;
+    text-underline-offset: 0.15em;
+  }
+
+  ::selection {
+    background: rgb(60, 60, 60);
   }
 }
 
-@layer utilities {
-  .heading {
-    @apply font-bold text-4xl md:text-5xl text-center;
+@layer components {
+  .typo-page {
+    max-width: var(--main-width);
+    margin: 0 auto;
+    padding: 0 var(--main-padding);
   }
 
-  .black-gradient {
-    background: linear-gradient(90deg, #161a31 0%, #06091f 100%);
+  /* Header */
+  .typo-header {
+    padding-top: var(--header-top-gap);
+    margin-bottom: 2rem;
+  }
+
+  .typo-header-title {
+    font-size: 2.6em;
+    font-weight: 600;
+    line-height: 1.2;
+  }
+
+  .typo-header-title a {
+    text-decoration: none;
+  }
+
+  .typo-menu {
+    display: flex;
+    flex-wrap: wrap;
+    padding-top: 1rem;
+    column-gap: 0.75rem;
+    row-gap: 0.25rem;
+    font-family: var(--font-mono), ui-monospace, monospace;
+    font-size: small;
+  }
+
+  /* Headings and text */
+  .typo-h1 {
+    font-size: 2em;
+    font-weight: 600;
+    line-height: 1.2;
+    margin-top: 2rem;
+    margin-bottom: 1.5rem;
+    scroll-margin-top: 1.5rem;
+  }
+
+  .typo-p {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    line-height: 1.5em;
+  }
+
+  .typo-small {
+    font-size: small;
+    color: var(--content-secondary);
+  }
+
+  .typo-mono {
+    font-family: var(--font-mono), ui-monospace, monospace;
+  }
+
+  /* Date + content rows, used for posts, jobs and education */
+  .post-line {
+    display: flex;
+    align-items: baseline;
+    margin-bottom: 0.5rem;
+  }
+
+  .line-date {
+    font-size: small;
+    font-family: var(--font-mono), ui-monospace, monospace;
+    min-width: 120px;
+    max-width: 120px;
+    text-align: right;
+    padding-right: 1rem;
+    flex-shrink: 0;
+  }
+
+  .line-summary {
+    font-size: small;
+    margin-top: 0.2rem;
+    color: var(--content-secondary);
+    line-height: 1.5em;
+  }
+
+  /* Social icons */
+  .social-icons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding: 12px 0;
+  }
+
+  .social-icons a {
+    text-decoration: none;
+    color: var(--content-primary);
+    transition: color 0.15s;
+  }
+
+  .social-icons a:hover {
+    color: var(--content-secondary);
+  }
+
+  .social-icons svg {
+    height: 20px;
+    width: 20px;
+  }
+
+  .typo-list {
+    list-style: disc;
+    padding-left: 2rem;
+  }
+
+  .typo-list li {
+    margin-top: 0.3rem;
+    line-height: 1.5em;
+  }
+
+  /* Footer */
+  .typo-footer {
+    font-size: small;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 0.4rem;
+    min-height: 3rem;
+    padding: 1rem 0;
+  }
+
+  .typo-footer a {
+    font-family: var(--font-mono), ui-monospace, monospace;
+  }
+
+  /* Markdown content of blog posts */
+  .typo-content h2 {
+    font-size: 1.8em;
+    font-weight: 600;
+    line-height: 1.25;
+    margin-top: 2rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .typo-content h3,
+  .typo-content h4,
+  .typo-content h5,
+  .typo-content h6 {
+    font-size: 1.3em;
+    font-weight: 600;
+    line-height: 1.3;
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .typo-content p {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    line-height: 1.5em;
+  }
+
+  .typo-content ul,
+  .typo-content ol {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    padding-left: 2rem;
+  }
+
+  .typo-content ul {
+    list-style: disc;
+  }
+
+  .typo-content ol {
+    list-style: decimal;
+  }
+
+  .typo-content li {
+    margin-top: 0.25rem;
+    line-height: 1.5em;
+  }
+
+  .typo-content blockquote {
+    margin: 1.5rem 0;
+    padding-left: 1rem;
+    border-left: 2px solid var(--code-border);
+    color: var(--content-secondary);
+  }
+
+  .typo-content pre {
+    padding: 1.5rem;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    border: 1px solid var(--code-border);
+    border-radius: 10px;
+    background: var(--code-background);
+    overflow-x: auto;
+    line-height: 1.3em;
+  }
+
+  .typo-content code {
+    font-family: var(--font-mono), ui-monospace, monospace;
+    font-size: 0.9em;
+  }
+
+  .typo-content :not(pre) > code {
+    background-color: var(--code-background);
+    border-radius: 3px;
+    padding: 2px;
+  }
+
+  .typo-content img {
+    max-width: 100%;
+    margin: 2rem auto;
+    border-radius: 6px;
+  }
+
+  .typo-content hr {
+    border: none;
+    height: 1px;
+    background: var(--content-secondary);
+    margin: 2rem 0;
+  }
+
+  .typo-content table {
+    margin: 2rem 0;
+    border-collapse: collapse;
+    width: 100%;
+  }
+
+  .typo-content th,
+  .typo-content td {
+    padding: 0.5rem;
+    border-bottom: 1px solid var(--code-border);
+    text-align: left;
   }
 }
 
-.group-social:hover .social {
-  transform: translateX(0) !important;
-}
+/* Phones: stack dates above their content */
+@media screen and (max-width: 640px) {
+  .post-line {
+    flex-direction: column;
+    gap: 0.1rem;
+    margin-bottom: 1rem;
+  }
 
-/* Blog posts: show blockquotes as written, without auto-inserted quote marks */
-.prose blockquote p:first-of-type::before,
-.prose blockquote p:last-of-type::after {
-  content: none;
+  .line-date {
+    min-width: 0;
+    max-width: none;
+    text-align: left;
+    padding-right: 0;
+    color: var(--content-secondary);
+  }
+
+  .typo-header-title {
+    font-size: 2.2em;
+  }
 }

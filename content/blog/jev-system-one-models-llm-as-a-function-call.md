@@ -1,154 +1,84 @@
 ---
 title: "Jev and System One Models: When an LLM Stops Talking and Starts Deciding"
 date: "2026-09-29"
-description: "TypeSafe's Jev gives up text generation to return typed, calibrated decisions in milliseconds. A first-principles look at why that trade matters for automation, and where it doesn't."
+description: "TypeSafe's Jev gives up text generation to return typed, calibrated decisions in milliseconds. Here's why that matters for automation."
 tags: ["AI", "LLMs", "System One Models", "Automation"]
 ---
 
-Models have been superhuman at chat for years. So why is so little of our software actually run by AI?
+Models have been great at chat for years. So why is so little software actually run by AI?
 
-That is the question TypeSafe AI opens with in their launch post, [Introducing System One Models & Jev](https://typesafe.ai/blog/introducing-system-one-models-and-jev). I spent some time with it, and I think the idea underneath is more important than the model itself. So let's break it down from first principles.
+That's the question behind TypeSafe AI's launch of [System One models and Jev](https://typesafe.ai/blog/introducing-system-one-models-and-jev). The idea is simple, and I think it's important.
 
-## The problem: software doesn't want prose
+## The problem
 
-Think about where an AI decision actually sits inside a real system.
+Most AI inside software isn't a chat. It's a decision:
 
-It is rarely a chat window. It is an `if` statement buried in a pipeline:
-
-- Is this support ticket about billing, a bug, or spam?
+- Is this ticket billing, a bug, or spam?
 - Should this transaction be flagged?
-- Which of these 300 links gets me closer to the target page?
 
-Today, we answer these by asking a chat model to *write* the answer and then scraping it back out:
+Today we ask an LLM to *write* the answer, then parse the text. That's:
 
-```ts
-// The usual way: generate text, then hope it parses
-const text = await llm.generate(prompt); // token by token, often seconds
-const parsed = parseDecision(text); // might fail
+- **Slow:** text is generated one token at a time.
+- **Expensive:** you pay for every output token.
+- **Fragile:** the output can be malformed or hallucinated.
+- **Unsure:** the model can't reliably tell you when it's wrong.
 
-if (!parsed.ok) {
-  // retry: more latency, more cost
-}
-```
+## The idea
 
-This works for demos. It hurts in production, for four reasons:
+The name comes from Kahneman's *Thinking, Fast and Slow*. System 2 is slow reasoning. System 1 is fast judgement.
 
-1. **Latency.** Generation is sequential, one token at a time. TypeSafe puts end-to-end response times for frontier models at 3 to 329 seconds. Fine for a human, painful for code that runs a million times a day.
-2. **Cost.** You pay for every output token, and output tokens are the expensive ones.
-3. **Shape.** A string can be anything: the right answer, a refusal, a hallucinated tool call, or JSON with one missing brace. Every caller needs parsing, validation and retries.
-4. **Confidence.** This is the subtle one. If a model is right 95% of the time but can't tell you *which* 5% it's wrong on, you can't safely automate that task at all.
+Most decisions in code are System 1: you already know the possible answers. You just need the model to pick one and say how sure it is.
 
-## The idea: System One models
+So Jev doesn't generate text at all. You define the allowed outputs, and it returns:
 
-The naming comes from Daniel Kahneman's *Thinking, Fast and Slow*. **System 2** is slow, deliberate reasoning. **System 1** is fast, intuitive judgement.
+- a value that always matches your types
+- a calibrated probability for each option
 
-Chat LLMs, especially with reasoning, lean System 2. They think out loud, in text.
+**The LLM becomes a function call.**
 
-But most decisions inside software are System 1 shaped. You already know the possible answers. You just need the model to pick one, quickly, and tell you how sure it is.
+## How it's fast
 
-TypeSafe's framing is simple:
+An LLM writes answers token by token. But if the answer is one of a few known options, there's nothing to write. You only need a score for each option.
 
-> Unstructured state in, typed probabilistic decisions out.
+Jev scores all outputs in parallel, in a single query. TypeSafe also trains it with a new method, RLCD (Reinforcement Learning for Calibrated Decisions), so that "90% sure" really means right about 90% of the time.
 
-Their first model, **Jev**, gives up free-form text generation entirely. You define the output space up front (the labels, fields and types), and Jev returns values that always match it, each with a calibrated probability.
-
-In other words, **the LLM stops being a chat partner and becomes a function call.**
-
-## How it works (at the level they've shared)
-
-The post names three pieces of the stack.
-
-### 1. A new model architecture
-
-Designed with an emphasis on structured program state as input, rather than a conversation of messages.
-
-### 2. A parallel sampler
-
-This is where the speed comes from, and it's worth understanding from first principles.
-
-An autoregressive LLM produces output one token at a time, each conditioned on the last. If your answer is a JSON object with ten fields, you wait for every token of every field, in order.
-
-But if the answer space is known in advance, you don't need to *generate* anything. You need a probability distribution over the allowed options. TypeSafe says Jev generates all of its outputs in a single query, in parallel, instead of token by token.
-
-That one design choice removes the sequential bottleneck, which fits with them pricing output as effectively free.
-
-### 3. A new training method: RLCD
-
-Reinforcement Learning for Calibrated Decisions. Compare what each approach optimises for:
-
-- **RLHF** rewards answers that human raters prefer.
-- **RLVR** rewards outputs that can be checked programmatically.
-- **RLCD** rewards *epistemically honest probabilities*: when Jev says 90%, it should be right about 90% of the time.
-
-Calibration is the whole game for automation. It's what lets you write code like this:
+That calibration is what makes automation safe:
 
 ```ts
 // Illustrative only: not TypeSafe's actual SDK
-type Route = "billing" | "bug" | "feature_request" | "spam";
-
-const decision = await decide<Route>({
-  state: ticket, // unstructured input
-  options: ["billing", "bug", "feature_request", "spam"],
+const decision = await decide({
+  state: ticket,
+  options: ["billing", "bug", "spam"],
 });
 
-// e.g. decision.probabilities = { billing: 0.91, bug: 0.06, ... }
-if (decision.confidence >= 0.9) {
-  routeTo(decision.value); // automate the confident cases
-} else {
-  sendToHuman(ticket); // escalate the uncertain ones
-}
+if (decision.confidence >= 0.9) routeTo(decision.value);
+else sendToHuman(ticket);
 ```
 
-The model doesn't have to be right every time. It has to know when it might be wrong, so the surrounding code can decide what to do.
+Automate the confident cases. Send the rest to a human.
 
-## The numbers they claim
+## The numbers (TypeSafe's claims)
 
-These are TypeSafe's published figures, not my benchmarks:
+- **Speed:** 70–500 ms, versus seconds or minutes for frontier LLMs.
+- **Cost:** $0.042 per million input tokens; output is effectively free.
+- **Type errors:** zero, since outputs always match the schema.
 
-- **Speed:** 70 to 500 ms end-to-end, which they describe as 40 to 200 times faster than frontier LLMs on System One shaped queries.
-- **Cost:** $0.042 per million input tokens, with output "too cheap to meter". For comparison, they list LLM input pricing at $0.20 to $10 per million tokens, with output around 5 times more.
-- **Workflow evals:** up to 193.6 times faster and 444.6 times cheaper, which they say is at the higher end of what to expect in the real world.
-- **Type errors:** zero, because outputs are constrained to the schema.
+"Can't hallucinate" means the answer is always a valid option. It can still pick the wrong one, but it tells you how confident it is.
 
-The demos make it concrete. One runs a Doom bot at 10 decisions per second for roughly $7 an hour. Another plays Wikiracing, where each step means choosing among hundreds or thousands of links. Jev supports up to 255 options per choice and uses a two-stage "score, then choose" approach beyond that.
+To their credit, the post also lists its own caveats, like bias in how they evaluated and that the pricing isn't yet proven long-term.
 
-## What I liked: the nuance
+## Where it fits
 
-The part of the post I respected most is that every claim comes with a "Nuance" section listing its own weaknesses:
+**Good for:** routing, classification, scoring, extraction, guardrails and real-time features.
 
-- Their workflow evals use the average of GPT-6 Astra and Fable 5.1 as the reference answer, which they note biases results toward those models.
-- The workflows were written by their own team, so some bias could exist.
-- Their speed numbers are measured from the US West Coast, where the service runs.
-- They can't yet prove the pricing isn't subsidised.
+**Not for:** anything that needs text, like writing, summaries, code or chat. That's still LLM territory.
 
-It's also worth being precise about "can't hallucinate". What's guaranteed is that the output always matches the schema. Jev can still pick the *wrong* option. The difference is that it will be a valid option, with a probability attached that tells you how much to trust it.
+The best setup is likely both: an LLM for open-ended thinking, and a fast System One model for the many small decisions around it.
 
-## Where it fits, and where it doesn't
+## Why it matters
 
-Jev deliberately trades generality for reliability. So it shines where the answer space is known:
+I wrote about [loop engineering](/blog/prompt-engineering-is-dead-loop-engineering-has-arrived): AI systems that run in continuous loops. Those loops are full of small decisions. Making each one fast, cheap and typed changes what's possible.
 
-- **Smart if-statements:** classify, route, score, extract and branch where hand-written rules are too brittle.
-- **Map-reduce over large data:** turning huge datasets into features at a cost that was previously unthinkable.
-- **Real-time apps:** 100 ms decisions are fast enough to sit directly in a user-facing flow.
-- **Verifiers and guardrails:** scoring or judging the output of other LLMs, including jailbreak detection.
+Jev is named after William Stanley Jevons: when coal got cheaper to use, demand went up. Cheaper intelligence should work the same way.
 
-And it is the wrong tool whenever you need text: writing, summarising, code generation, open-ended chat. That's still System 2 territory, and chat LLMs remain the right choice there.
-
-In practice, I expect the two to work together: an LLM does the slow, open-ended reasoning, and a System One model makes the thousands of fast, cheap decisions around it.
-
-## Why this matters
-
-I wrote earlier that [prompt engineering is giving way to loop engineering](/blog/prompt-engineering-is-dead-loop-engineering-has-arrived): building continuous, event-driven systems around models. Those loops are full of small decisions. Should this event trigger the agent? Is this output good enough to ship? Which path should we take next?
-
-Today each of those decisions is a slow, expensive, occasionally malformed LLM call. A fast, typed, calibrated decision model changes the economics of every one of them.
-
-That's also where the name comes from. Jev is named after William Stanley Jevons, who observed that as steam engines made coal more efficient to use, total demand for coal went *up*, not down. TypeSafe is betting the same happens with intelligence: every order-of-magnitude drop in the cost of a decision unlocks far more places to use one.
-
-## Key takeaways
-
-1. Most AI inside software is a **decision**, not a conversation, and strings are an expensive, fragile way to return decisions.
-2. If the output space is known in advance, you can **skip generation** and score all options in parallel. That's where the speed and cost gains come from.
-3. **Calibration** is what makes automation safe: automate the confident cases, escalate the rest.
-4. Treat the headline numbers as the company's claims. Jev is in early access, so benchmark it on your own workflows before betting on it.
-
-The shift I'm watching isn't a smarter chatbot. It's AI becoming a typed, dependable building block that ordinary code can call like any other function.
+Jev is in early access, so treat the numbers as claims and test it on your own workloads. But the shift is clear: AI is becoming something ordinary code can call like a function.

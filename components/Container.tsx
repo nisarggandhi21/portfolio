@@ -1,4 +1,4 @@
-// Centres content inside the outlined page panel
+// Centred page width shared by the header, sections and footer
 const Container = ({
   className = "",
   children,
@@ -6,12 +6,8 @@ const Container = ({
   className?: string;
   children: React.ReactNode;
 }) => (
-  <div className={`sm:px-8 ${className}`}>
-    <div className="mx-auto w-full max-w-7xl lg:px-8">
-      <div className="relative px-4 sm:px-8 lg:px-12">
-        <div className="mx-auto max-w-2xl lg:max-w-5xl">{children}</div>
-      </div>
-    </div>
+  <div className={`mx-auto w-full max-w-6xl px-5 sm:px-8 ${className}`}>
+    {children}
   </div>
 );
 

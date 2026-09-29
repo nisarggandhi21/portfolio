@@ -4,6 +4,7 @@ date: "2026-06-22"
 description: "Moving beyond stateless prompting: how to engineer robust, stateful and proactive agent loops with triggers, context boundaries and dynamic steerability."
 tags: ["AI Agents", "Loop Engineering", "LLMs"]
 originalUrl: "https://www.linkedin.com/pulse/prompt-engineering-dead-loop-has-arrived-nisarg-gandhi-rrzbf/"
+coverImage: "/blog/prompt-engineering-is-dead-loop-engineering-has-arrived-cover.jpg"
 ---
 
 We are all comfortable interacting with LLM APIs in a reactive, request-response manner. You write a prompt, you press enter, and you get an answer. It treats AI as a powerful tool.
@@ -44,7 +45,7 @@ There are two primary patterns:
 1. Human-in-the-Loop (HITL) Observability: An agentic loop must not be a black box. You need the ability to view execution in real time, interrupt mid-thought, and steer the session.
 2. Agent-in-the-Loop (Multi-Agent Patterns): Instead of one massive loop, engineer interconnected systems. Agent A (Generator) creates a draft. Agent B (Critique) automatically reviews that draft before any human interaction.
 
-![Article image](https://media.licdn.com/dms/image/v2/D4D12AQGa-ox7L9CAug/article-inline_image-shrink_1000_1488/B4DZ7v4uG8J4AI-/0/1782141092302)
+![Loop Engineering diagram: event trigger, context assembly, autonomous action and resolution, with the three pillars of trigger engineering, context boundaries and dynamic steerability](/blog/loop-engineering.webp)
 
 **Real-World Application: The Automated Docs Loop**
 

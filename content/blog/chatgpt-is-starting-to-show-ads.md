@@ -4,6 +4,7 @@ date: "2026-08-04"
 description: "ChatGPT is beginning to show clearly labeled sponsored placements to free users. Why the separation between ads and AI answers matters more than the ads themselves."
 tags: ["AI", "ChatGPT", "Product"]
 originalUrl: "https://www.linkedin.com/pulse/chatgpt-starting-show-ads-heres-why-matters-nisarg-gandhi-f3rzf/"
+coverImage: "/blog/chatgpt-is-starting-to-show-ads-cover.jpg"
 ---
 
 For years, ChatGPT stood out because of its simplicity.

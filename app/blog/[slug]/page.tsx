@@ -1,12 +1,16 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import ReactMarkdown from "react-markdown";
+import { MarkdownAsync } from "react-markdown";
+import rehypePrettyCode from "rehype-pretty-code";
 import remarkGfm from "remark-gfm";
 import { FiArrowLeft } from "react-icons/fi";
 
 import Container from "@/components/Container";
+import { Label } from "@/components/ui";
 import { formatDate, getAllPosts, getPostBySlug } from "@/lib/blog";
+import { rssAlternate } from "@/lib/site";
 
 // Only the posts in content/blog exist; anything else is a 404
 export const dynamicParams = false;
@@ -26,7 +30,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title,
     description: post.description,
-    alternates: { canonical: `/blog/${post.slug}` },
+    alternates: { canonical: `/blog/${post.slug}`, types: rssAlternate },
     openGraph: {
       type: "article",
       title,
@@ -35,7 +39,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       publishedTime: post.date,
       authors: ["Nisarg Gandhi"],
       tags: post.tags,
-      ...(post.coverImage && { images: [post.coverImage] }),
+      // the preview image comes from ./opengraph-image.tsx
     },
   };
 }
@@ -46,76 +50,88 @@ export default async function BlogPostPage({ params }: Props) {
   if (!post) notFound();
 
   return (
-    <Container className="mt-16 lg:mt-32">
-      <div className="xl:relative">
-        <div className="mx-auto max-w-2xl">
-          <Link
-            href="/blog"
-            aria-label="Back to articles"
-            className="group mb-8 flex h-10 w-10 items-center justify-center rounded-full bg-zinc-800 shadow-md shadow-black/20 ring-1 ring-white/10 transition hover:ring-white/20 lg:absolute lg:-left-5 lg:-mt-2 lg:mb-0 xl:-top-1.5 xl:left-0 xl:mt-0"
+    <Container className="pt-12 sm:pt-20">
+      <article className="mx-auto max-w-3xl">
+        <Link
+          href="/blog"
+          className="label group inline-flex items-center gap-2 text-muted transition hover:text-ink"
+        >
+          <FiArrowLeft
+            aria-hidden
+            className="transition group-hover:-translate-x-0.5"
+          />
+          All articles
+        </Link>
+
+        <header className="mt-10">
+          <Label dash>
+            {formatDate(post.date, "short")} · {post.readingTime} min read
+            {post.tags[0] && ` · ${post.tags[0]}`}
+          </Label>
+          <h1 className="mt-6 font-serif text-5xl leading-[1.02] tracking-tight text-ink sm:text-6xl">
+            {post.title}
+          </h1>
+          {post.description && (
+            <p className="mt-6 text-xl leading-relaxed text-muted">
+              {post.description}
+            </p>
+          )}
+          {post.originalUrl && (
+            <a
+              href={post.originalUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="label mt-6 inline-flex items-center gap-2 text-accent"
+            >
+              Originally on {post.originalSource} ↗
+            </a>
+          )}
+        </header>
+
+        {post.coverImage && (
+          <Image
+            src={post.coverImage}
+            alt={`Cover image for “${post.title}”`}
+            width={1280}
+            height={720}
+            priority
+            sizes="(min-width: 768px) 768px, 100vw"
+            className="mt-10 w-full rounded-xl border border-line"
+          />
+        )}
+
+        <div className="article-content mt-12 text-[17px]">
+          {/* Code blocks are highlighted at build time; no extra JS is sent */}
+          <MarkdownAsync
+            remarkPlugins={[remarkGfm]}
+            rehypePlugins={[
+              [
+                rehypePrettyCode,
+                { theme: "github-dark-dimmed", keepBackground: false },
+              ],
+            ]}
           >
-            <FiArrowLeft
-              aria-hidden
-              className="h-4 w-4 text-zinc-400 transition group-hover:text-zinc-300"
-            />
-          </Link>
-          <article>
-            <header className="flex flex-col">
-              <h1 className="mt-6 text-4xl font-bold tracking-tight text-zinc-100 sm:text-5xl">
-                {post.title}
-              </h1>
-              <p className="order-first flex flex-wrap items-center gap-x-3 gap-y-1 text-base text-zinc-500">
-                <span className="flex items-center">
-                  <span
-                    className="mr-3 h-4 w-0.5 rounded-full bg-zinc-500"
-                    aria-hidden
-                  />
-                  <time dateTime={post.date}>{formatDate(post.date)}</time>
-                </span>
-                <span>· {post.readingTime} min read</span>
-                {post.originalUrl && (
-                  <a
-                    href={post.originalUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="transition hover:text-accent"
-                  >
-                    · Originally on {post.originalSource} ↗
-                  </a>
-                )}
-              </p>
-            </header>
-
-            {post.coverImage && (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img
-                src={post.coverImage}
-                alt=""
-                className="mt-8 w-full rounded-2xl"
-              />
-            )}
-
-            <div className="article-content mt-8">
-              <ReactMarkdown remarkPlugins={[remarkGfm]}>
-                {post.content}
-              </ReactMarkdown>
-            </div>
-
-            {post.tags.length > 0 && (
-              <ul className="mt-12 flex flex-wrap gap-2">
-                {post.tags.map((tag) => (
-                  <li
-                    key={tag}
-                    className="rounded-full bg-zinc-800/60 px-3 py-1 text-xs text-zinc-400 ring-1 ring-zinc-700/50"
-                  >
-                    {tag}
-                  </li>
-                ))}
-              </ul>
-            )}
-          </article>
+            {post.content}
+          </MarkdownAsync>
         </div>
-      </div>
+
+        {post.tags.length > 0 && (
+          <ul className="mt-14 flex flex-wrap gap-2 border-t border-line pt-8">
+            {post.tags.map((tag) => (
+              <li
+                key={tag}
+                className="inline-flex items-center gap-2 rounded-full border border-line px-3 py-1 text-sm text-muted"
+              >
+                <span
+                  aria-hidden
+                  className="h-1.5 w-1.5 rounded-full bg-faint"
+                />
+                {tag}
+              </li>
+            ))}
+          </ul>
+        )}
+      </article>
     </Container>
   );
 }

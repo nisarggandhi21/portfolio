@@ -4,6 +4,7 @@ date: "2026-07-22"
 description: "How the ReAct (Reason + Act) pattern lets AI agents alternate between reasoning and using tools, and why most production agents rely on it."
 tags: ["AI Agents", "ReAct", "LLMs"]
 originalUrl: "https://www.linkedin.com/pulse/react-pattern-teaching-ai-agents-think-before-act-nisarg-gandhi-tvyve/"
+coverImage: "/blog/react-pattern-ai-agents-think-before-they-act-cover.jpg"
 ---
 
 Most LLMs follow a simple flow:

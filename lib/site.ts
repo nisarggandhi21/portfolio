@@ -7,6 +7,13 @@ export const siteUrl =
     ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
     : "http://localhost:3000");
 
+// Advertises the RSS feed to feed readers; include in each page's `alternates`
+export const rssAlternate = {
+  "application/rss+xml": [
+    { url: "/feed.xml", title: "Nisarg Gandhi – Articles" },
+  ],
+};
+
 export const siteTitle = "Nisarg Gandhi | Software Developer";
 
 export const siteDescription =

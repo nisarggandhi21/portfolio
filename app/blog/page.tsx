@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { ArticleArchive } from "@/components/ArticleList";
 import PageIntro from "@/components/PageIntro";
 import { getAllPosts } from "@/lib/blog";
+import { rssAlternate } from "@/lib/site";
 
 const description =
   "Articles by Nisarg Gandhi on software development, web engineering and lessons from building real projects.";
@@ -9,7 +10,7 @@ const description =
 export const metadata: Metadata = {
   title: "Blog | Nisarg Gandhi",
   description,
-  alternates: { canonical: "/blog" },
+  alternates: { canonical: "/blog", types: rssAlternate },
   openGraph: {
     title: "Blog | Nisarg Gandhi",
     description,

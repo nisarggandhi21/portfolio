@@ -11,12 +11,13 @@ import {
   workExperience,
 } from "@/data";
 import { formatDuration, formatMonth, monthsBetween } from "@/lib/dates";
+import { rssAlternate } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Work | Nisarg Gandhi",
   description:
     "Experience, projects and skills of Nisarg Gandhi, a Full Stack Developer working with React.js, Next.js and Node.js.",
-  alternates: { canonical: "/work" },
+  alternates: { canonical: "/work", types: rssAlternate },
 };
 
 export default function WorkPage() {

@@ -46,7 +46,7 @@ GitHub Spec Kit is a free, open-source toolkit that introduces a specification-f
 
 Instead of repeatedly feeding context into prompts, Spec Kit creates a structured, persistent source of truth that both humans and AI can reference throughout a project’s lifecycle.
 
-![Article image](https://miro.medium.com/v2/resize:fit:436/1*lGo8NBDlYgwiuMKyhhiFVw.png)
+![The five-stage Spec Kit workflow for AI-assisted development: constitution, specification, planning, tasks and implementation](/blog/spec-kit-workflow.png)
 
 At the center of the approach is a `.specify/` folder stored directly in your repository.
 

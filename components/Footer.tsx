@@ -20,6 +20,9 @@ const Footer = () => (
                 {item.name}
               </Link>
             ))}
+            <a href="/feed.xml" className="transition hover:text-accent">
+              RSS
+            </a>
           </div>
           <p className="text-sm text-zinc-500">
             © <CurrentYear initialYear={new Date().getFullYear()} />{" "}

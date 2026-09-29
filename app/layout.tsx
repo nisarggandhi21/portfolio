@@ -3,7 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
-import { siteDescription, siteTitle, siteUrl } from "@/lib/site";
+import { rssAlternate, siteDescription, siteTitle, siteUrl } from "@/lib/site";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -21,6 +21,7 @@ export const metadata: Metadata = {
   description: siteDescription,
   alternates: {
     canonical: "/",
+    types: rssAlternate,
   },
   openGraph: {
     type: "website",

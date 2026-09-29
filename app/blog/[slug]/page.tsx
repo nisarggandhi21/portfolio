@@ -1,12 +1,15 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import ReactMarkdown from "react-markdown";
+import { MarkdownAsync } from "react-markdown";
+import rehypePrettyCode from "rehype-pretty-code";
 import remarkGfm from "remark-gfm";
 import { FiArrowLeft } from "react-icons/fi";
 
 import Container from "@/components/Container";
 import { formatDate, getAllPosts, getPostBySlug } from "@/lib/blog";
+import { rssAlternate } from "@/lib/site";
 
 // Only the posts in content/blog exist; anything else is a 404
 export const dynamicParams = false;
@@ -26,7 +29,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title,
     description: post.description,
-    alternates: { canonical: `/blog/${post.slug}` },
+    alternates: { canonical: `/blog/${post.slug}`, types: rssAlternate },
     openGraph: {
       type: "article",
       title,
@@ -35,7 +38,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       publishedTime: post.date,
       authors: ["Nisarg Gandhi"],
       tags: post.tags,
-      ...(post.coverImage && { images: [post.coverImage] }),
+      // the preview image comes from ./opengraph-image.tsx
     },
   };
 }
@@ -87,18 +90,30 @@ export default async function BlogPostPage({ params }: Props) {
             </header>
 
             {post.coverImage && (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img
+              <Image
                 src={post.coverImage}
-                alt=""
-                className="mt-8 w-full rounded-2xl"
+                alt={`Cover image for “${post.title}”`}
+                width={1280}
+                height={720}
+                priority
+                sizes="(min-width: 768px) 672px, 100vw"
+                className="mt-8 w-full rounded-2xl ring-1 ring-zinc-700/40"
               />
             )}
 
             <div className="article-content mt-8">
-              <ReactMarkdown remarkPlugins={[remarkGfm]}>
+              {/* Code blocks are highlighted at build time; no extra JS is sent */}
+              <MarkdownAsync
+                remarkPlugins={[remarkGfm]}
+                rehypePlugins={[
+                  [
+                    rehypePrettyCode,
+                    { theme: "github-dark-dimmed", keepBackground: false },
+                  ],
+                ]}
+              >
                 {post.content}
-              </ReactMarkdown>
+              </MarkdownAsync>
             </div>
 
             {post.tags.length > 0 && (

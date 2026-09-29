@@ -1,36 +1,54 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# nisarg-gandhi.com
 
-## Getting Started
+Personal portfolio and blog of Nisarg Gandhi, Full Stack Developer based in Mumbai.
+Live at [www.nisarg-gandhi.com](https://www.nisarg-gandhi.com).
 
-First, run the development server:
+Built with [Next.js](https://nextjs.org) (App Router), TypeScript and Tailwind CSS, deployed on Vercel.
+
+## Pages
+
+| Route          | What it shows                                                          |
+| -------------- | ---------------------------------------------------------------------- |
+| `/`            | Intro, work summary, latest articles, WakaTime coding hours, education |
+| `/work`        | Full experience, skills, projects, recognition and education           |
+| `/blog`        | All articles                                                           |
+| `/blog/[slug]` | A single article (with its own link-preview image)                     |
+| `/feed.xml`    | RSS feed of the articles                                               |
+
+## Running locally
+
+Requires Node.js 22.
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm ci
+npm run dev        # http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Other scripts:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npm run lint       # ESLint
+npx tsc --noEmit   # type check
+npm run build      # production build
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+The same checks run on every pull request (`.github/workflows/ci.yml`).
 
-## Learn More
+### Environment variables
 
-To learn more about Next.js, take a look at the following resources:
+| Variable               | Required | Purpose                                                                                       |
+| ---------------------- | -------- | --------------------------------------------------------------------------------------------- |
+| `WAKATIME_API_KEY`     | No       | Shows total coding hours on the homepage. Without it, the card links to the WakaTime profile. |
+| `NEXT_PUBLIC_SITE_URL` | No       | Absolute site URL for metadata, sitemap and RSS. On Vercel the production domain is used.     |
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Put them in `.env.local` for local development.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Editing content
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- **Profile, experience, skills, projects, awards, education:** `data/index.ts`.
+  Wrap numbers in `**double asterisks**` in experience bullet points to highlight them.
+  Company and school logos live in `public/logos/`; entries without a `logo` show their first letter.
+- **Articles:** add a Markdown file to `content/blog/`. The file name becomes the URL.
+  Copy `content/blog/_template.md` for the front matter (title, date, description, tags,
+  optional `originalUrl` and `coverImage`). Images go in `public/blog/`.
+  Code blocks with a language (e.g. ` ```ts `) are syntax-highlighted at build time.

@@ -23,7 +23,7 @@ const WorkCard = () => {
           const endYear = yearOf(job.end);
           return (
             <li key={job.id} className="flex gap-4">
-              <Monogram label={job.company} />
+              <Monogram label={job.company} logo={job.logo} />
               {/* company | duration on the first line, role | years on the second */}
               <dl className="grid flex-auto grid-cols-[1fr_auto] items-baseline gap-x-3 gap-y-0.5">
                 <dt className="sr-only">Company</dt>

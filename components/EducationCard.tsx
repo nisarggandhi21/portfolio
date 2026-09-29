@@ -8,7 +8,7 @@ const EducationCard = () => (
     <ol className="mt-6 space-y-4">
       {education.map((item) => (
         <li key={item.school} className="flex gap-4">
-          <Monogram label={item.school} />
+          <Monogram label={item.school} logo={item.logo} />
           <dl className="grid flex-auto grid-cols-[1fr_auto] items-baseline gap-x-3 gap-y-0.5">
             <dt className="sr-only">School</dt>
             <dd className="col-span-2 text-sm font-medium text-zinc-100">

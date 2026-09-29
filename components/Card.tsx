@@ -1,3 +1,4 @@
+import Image from "next/image";
 import type { IconType } from "react-icons";
 
 // Outlined side card with an icon title, like the "Work" card
@@ -26,9 +27,20 @@ export const SideCard = ({
   </div>
 );
 
-// Round badge with a letter, standing in for a company logo
-export const Monogram = ({ label }: { label: string }) => (
-  <div className="relative flex h-10 w-10 flex-none items-center justify-center rounded-full bg-zinc-800 text-sm font-semibold text-zinc-300 shadow-md shadow-black/20 ring-1 ring-zinc-700/50">
-    {label.charAt(0)}
+// Round badge with the company logo, or its first letter when there is no logo
+export const Monogram = ({ label, logo }: { label: string; logo?: string }) => (
+  <div className="relative flex h-10 w-10 flex-none items-center justify-center overflow-hidden rounded-full bg-zinc-800 text-sm font-semibold text-zinc-300 shadow-md shadow-black/20 ring-1 ring-zinc-700/50">
+    {logo ? (
+      <Image
+        src={logo}
+        alt=""
+        width={28}
+        height={28}
+        unoptimized
+        className="h-7 w-7 object-contain"
+      />
+    ) : (
+      label.charAt(0)
+    )}
   </div>
 );

@@ -8,6 +8,8 @@ export type ExperienceProject = {
 export type Experience = {
   id: number;
   company: string;
+  // Optional logo in public/logos; a letter badge is shown without one
+  logo?: string;
   role: string;
   note?: string;
   // "YYYY-MM"
@@ -21,6 +23,7 @@ export const workExperience: Experience[] = [
   {
     id: 1,
     company: "Withum",
+    logo: "/logos/withum.svg",
     role: "Consultant",
     note: "Promoted from Analyst",
     start: "2024-07",
@@ -64,6 +67,7 @@ export const workExperience: Experience[] = [
   {
     id: 2,
     company: "Walnut Folks",
+    logo: "/logos/walnut-folks.png",
     role: "Web Development Trainee",
     start: "2024-02",
     end: "2024-05",
@@ -199,6 +203,7 @@ export const awards = [
 export const education = [
   {
     school: "PES University",
+    logo: "/logos/pes-university.png",
     degree: "Master of Computer Applications (MCA)",
     shortDegree: "MCA",
     location: "Bengaluru",

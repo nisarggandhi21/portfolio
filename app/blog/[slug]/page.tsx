@@ -3,7 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-import { FaLinkedin } from "react-icons/fa";
+import { FaLinkedin, FaMedium } from "react-icons/fa";
 import { formatDate, getAllPosts, getPostBySlug } from "@/lib/blog";
 
 // Only the posts in content/blog exist; anything else is a 404
@@ -56,14 +56,16 @@ export default async function BlogPostPage({ params }: Props) {
         <span>
           {formatDate(post.date)} · {post.readingTime} min read
         </span>
-        {post.linkedinUrl && (
+        {post.originalUrl && (
           <a
-            href={post.linkedinUrl}
+            href={post.originalUrl}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-1.5 hover:text-white transition"
           >
-            <FaLinkedin aria-hidden /> Originally published on LinkedIn
+            {post.originalSource === "LinkedIn" && <FaLinkedin aria-hidden />}
+            {post.originalSource === "Medium" && <FaMedium aria-hidden />}
+            Originally published on {post.originalSource}
           </a>
         )}
       </div>

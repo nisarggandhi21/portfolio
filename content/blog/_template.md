@@ -5,7 +5,7 @@ title: "Post title"
 date: "2025-01-31" # original publish date, YYYY-MM-DD
 description: "One or two sentences shown on the blog list and in link previews."
 tags: ["Web Development"]
-linkedinUrl: "https://www.linkedin.com/pulse/..." # optional: link to the original LinkedIn article
+originalUrl: "https://www.linkedin.com/pulse/..." # optional: where it was first published (LinkedIn, Medium, ...)
 coverImage: "/blog/my-first-post.jpg" # optional: put the image in public/blog/
 ---
 

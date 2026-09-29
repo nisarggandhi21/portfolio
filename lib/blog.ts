@@ -12,7 +12,8 @@ export type PostMeta = {
   date: string;
   description: string;
   tags: string[];
-  linkedinUrl?: string;
+  originalUrl?: string;
+  originalSource?: string;
   coverImage?: string;
   readingTime: number;
 };
@@ -20,6 +21,16 @@ export type PostMeta = {
 export type Post = PostMeta & { content: string };
 
 const WORDS_PER_MINUTE = 200;
+
+// Human-readable name of the site a post was first published on, e.g. "LinkedIn"
+function getSourceName(url: string): string {
+  const host = new URL(url).hostname.replace(/^www\./, "");
+  if (host.endsWith("linkedin.com")) return "LinkedIn";
+  if (host.endsWith("medium.com")) return "Medium";
+  if (host.endsWith("dev.to")) return "DEV";
+  if (host.endsWith("hashnode.dev")) return "Hashnode";
+  return host;
+}
 
 function getPostFiles(): string[] {
   if (!fs.existsSync(BLOG_DIR)) return [];
@@ -49,7 +60,10 @@ function readPost(file: string): Post {
         : String(data.date),
     description: data.description ? String(data.description) : "",
     tags: Array.isArray(data.tags) ? data.tags.map(String) : [],
-    linkedinUrl: data.linkedinUrl ? String(data.linkedinUrl) : undefined,
+    originalUrl: data.originalUrl ? String(data.originalUrl) : undefined,
+    originalSource: data.originalUrl
+      ? getSourceName(String(data.originalUrl))
+      : undefined,
     coverImage: data.coverImage ? String(data.coverImage) : undefined,
     readingTime: Math.max(1, Math.round(words / WORDS_PER_MINUTE)),
     content,

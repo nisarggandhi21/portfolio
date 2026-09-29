@@ -75,34 +75,158 @@ export type Project = {
 // Add your own projects here and re-enable <RecentProjects /> in app/page.tsx
 export const projects: Project[] = [];
 
-export const workExperience = [
+export type ExperienceProject = {
+  name: string;
+  stack: string[];
+  // Wrap numbers in **double asterisks** to highlight them
+  points: string[];
+};
+
+export type Experience = {
+  id: number;
+  company: string;
+  role: string;
+  note?: string;
+  period: string;
+  location: string;
+  projects: ExperienceProject[];
+};
+
+export const workExperience: Experience[] = [
   {
     id: 1,
-    title: "Freelance Project",
-    desc: "Led the development of a client web app from initial concept to deployment, design, and implementation to deliver a scalable and user-friendly solution.",
-    className: "md:col-span-2", // change to md:col-span-2
-    thumbnail: "/exp1.svg",
+    company: "Withum",
+    role: "Consultant",
+    note: "Promoted from Analyst",
+    period: "Jul 2024 – Jun 2026",
+    location: "Bengaluru, India",
+    projects: [
+      {
+        name: "Analytics Dashboard",
+        stack: ["React.js", "Next.js", "Node.js", "GraphQL"],
+        points: [
+          "Architected a React-based analytics dashboard for US tax auditing workflows, improving data rendering efficiency and reducing code duplication by **30%**.",
+          "Implemented GraphQL APIs, decreasing payload size by **35%** and accelerating response time by **20%**.",
+        ],
+      },
+      {
+        name: "Auditing Platform",
+        stack: ["Angular", "Python"],
+        points: [
+          "Revamped audit workflows using Angular UI and Python data pipelines, increasing processing throughput by **3x** and reducing manual effort by **40%**.",
+          "Guided **2 junior developers**, accelerating onboarding and enhancing sprint delivery efficiency.",
+        ],
+      },
+      {
+        name: "API Services & Data Optimization",
+        stack: ["Node.js", "PostgreSQL", "MongoDB"],
+        points: [
+          "Designed backend APIs powering **5+ production features**, increasing data delivery efficiency and reducing response latency by **20%**.",
+          "Refined database queries and indexing strategies, cutting execution time by **40%** and lowering load by **25%**.",
+        ],
+      },
+      {
+        name: "CI/CD Monitoring Integration",
+        stack: ["GitHub Actions", "Slack API"],
+        points: [
+          "Developed a Slack-based notification system for CI/CD pipelines, eliminating manual monitoring effort and improving alert visibility.",
+          "Deployed applications via CI/CD pipelines in an AWS environment, improving system reliability and reducing downtime during releases by **50%**.",
+        ],
+      },
+    ],
   },
   {
     id: 2,
-    title: "Web Developer Intern",
-    desc: "Developed responsive and high-performance websites using HTML, CSS, JavaScript, and Bootstrap, improving load times and user experience.",
-    className: "md:col-span-2",
-    thumbnail: "/exp3.svg",
+    company: "Walnut Folks",
+    role: "Web Development Trainee",
+    period: "Feb 2024 – May 2024",
+    location: "Bengaluru, India",
+    projects: [
+      {
+        name: "Client Web Application",
+        stack: ["React.js", "Next.js", "Node.js", "Express.js", "MongoDB"],
+        points: [
+          "Delivered and deployed features across **2 full-stack web applications** using React.js, Next.js, and Node.js.",
+          "Maintained **zero critical production bugs** across **3 deployments** while consistently delivering **2+ features per sprint**.",
+        ],
+      },
+    ],
   },
   {
     id: 3,
-    title: "Web Development Trainee",
-    desc: "Managed and optimized 7+ websites, enhancing performance and reducing load times through efficient coding and server optimizations.",
-    className: "md:col-span-2", // change to md:col-span-2
-    thumbnail: "/exp2.svg",
+    company: "Digitopia",
+    role: "Web Development Intern",
+    period: "Feb 2022 – Apr 2022",
+    location: "Remote",
+    projects: [
+      {
+        name: "Client Website Development",
+        stack: ["HTML", "CSS", "JavaScript", "Bootstrap"],
+        points: [
+          "Executed end-to-end development of a client-facing website with **100% ownership**, covering design, responsiveness, and deployment.",
+          "Engineered a fully responsive UI supporting **3+ device types**, ensuring consistent user experience across platforms.",
+        ],
+      },
+    ],
+  },
+];
+
+export const skillGroups = [
+  {
+    title: "Frontend",
+    skills: [
+      "React.js",
+      "Next.js",
+      "Angular",
+      "JavaScript (ES6+)",
+      "TypeScript",
+      "React Hooks",
+      "Redux",
+      "Tailwind CSS",
+      "HTML5",
+      "CSS3",
+    ],
   },
   {
-    id: 4,
-    title: "Analyst",
-    desc: "Developed and maintained user-facing features using modern technologies, focusing on performance, scalability, and seamless integration with backend systems.",
-    className: "md:col-span-2", // change to md:col-span-2
-    thumbnail: "/exp4.svg",
+    title: "Backend",
+    skills: [
+      "Node.js",
+      "Express.js",
+      "REST APIs",
+      "GraphQL",
+      "Apollo Server",
+      "JWT",
+      "OAuth2",
+      "Socket.io",
+    ],
+  },
+  {
+    title: "Databases",
+    skills: ["MongoDB", "PostgreSQL", "MySQL", "Redis"],
+  },
+  {
+    title: "DevOps & Cloud",
+    skills: [
+      "AWS (ECS, EC2, S3, Lambda, ALB, Auto Scaling)",
+      "Docker",
+      "Kubernetes",
+      "GitHub Actions",
+      "Vercel",
+      "Linux",
+    ],
+  },
+  {
+    title: "Testing & Tools",
+    skills: ["Jest", "Cypress", "Postman", "JMeter", "Git", "Agile/Scrum"],
+  },
+  {
+    title: "AI & Integrations",
+    skills: [
+      "LLM API Integration",
+      "Prompt Engineering",
+      "AI-powered Feature Development",
+      "Spec Driven Development",
+    ],
   },
 ];
 

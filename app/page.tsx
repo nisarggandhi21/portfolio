@@ -2,6 +2,7 @@ import Experience from "@/components/Experience";
 import Footer from "@/components/Footer";
 import Grid from "@/components/Grid";
 import Hero from "@/components/Hero";
+import Skills from "@/components/Skills";
 // import RecentProjects from "@/components/RecentProjects";
 import { FloatingNav } from "@/components/ui/FloatingNav";
 import { getAllPosts } from "@/lib/blog";
@@ -19,6 +20,7 @@ export default function Home() {
             { name: "About", link: "#about" },
             // { name: "Projects", link: "#projects" },
             { name: "Experience", link: "#experience" },
+            { name: "Skills", link: "#skills" },
             { name: "Contact", link: "#contact" },
             ...(hasPosts ? [{ name: "Blog", link: "/blog" }] : []),
           ]}
@@ -27,6 +29,7 @@ export default function Home() {
         <Grid />
         {/* <RecentProjects /> */}
         <Experience />
+        <Skills />
         <Footer />
       </div>
     </div>

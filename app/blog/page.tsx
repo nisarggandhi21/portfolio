@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
-import { ArticleArchive } from "@/components/ArticleList";
-import PageIntro from "@/components/PageIntro";
+import ArticleVerdicts from "@/components/ArticleVerdicts";
+import Container from "@/components/Container";
+import SectionHeader from "@/components/SectionHeader";
 import { getAllPosts } from "@/lib/blog";
 import { rssAlternate } from "@/lib/site";
 
@@ -22,17 +23,21 @@ export default function BlogPage() {
   const posts = getAllPosts();
 
   return (
-    <PageIntro
-      title="Writing on software, AI agents and building with LLMs."
-      intro="Notes on what I'm learning: AI agents and the patterns behind them, spec-driven development, and where the AI industry is heading. Most of these were first published on LinkedIn and Medium."
-    >
-      {posts.length === 0 ? (
-        <p className="text-zinc-400">
-          Posts are on their way. Check back soon!
-        </p>
-      ) : (
-        <ArticleArchive posts={posts} />
-      )}
-    </PageIntro>
+    <Container className="pt-16 sm:pt-24">
+      <SectionHeader
+        as="h1"
+        size="lg"
+        label={`The writing · ${posts.length} articles`}
+        title="Writing"
+        intro="Notes on AI agents and the patterns behind them, spec-driven development, and where the AI industry is heading. Some were first published on LinkedIn and Medium."
+      />
+      <div className="mt-14">
+        {posts.length === 0 ? (
+          <p className="text-muted">Posts are on their way. Check back soon!</p>
+        ) : (
+          <ArticleVerdicts posts={posts} />
+        )}
+      </div>
+    </Container>
   );
 }

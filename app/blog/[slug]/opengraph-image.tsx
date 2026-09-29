@@ -55,8 +55,8 @@ export default async function OpengraphImage({
         flexDirection: "column",
         justifyContent: "space-between",
         padding: "80px 96px",
-        backgroundColor: "#000000",
-        color: "#F4F4F5",
+        backgroundColor: "#0c0b09",
+        color: "#EFE8DC",
       }}
     >
       <div
@@ -64,14 +64,14 @@ export default async function OpengraphImage({
           display: "flex",
           alignItems: "center",
           fontSize: 28,
-          color: "#A1A1AA",
+          color: "#A39B8F",
         }}
       >
         <div
           style={{
             width: 4,
             height: 32,
-            backgroundColor: "#7BA702",
+            backgroundColor: "#EF7B4D",
             marginRight: 20,
             borderRadius: 2,
           }}
@@ -89,7 +89,7 @@ export default async function OpengraphImage({
       >
         {stripEmoji(post.title)}
       </div>
-      <div style={{ display: "flex", fontSize: 30, color: "#A1A1AA" }}>
+      <div style={{ display: "flex", fontSize: 30, color: "#A39B8F" }}>
         Nisarg Gandhi · Articles
       </div>
     </div>,

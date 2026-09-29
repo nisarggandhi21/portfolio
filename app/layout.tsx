@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Instrument_Serif } from "next/font/google";
 import "./globals.css";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
@@ -12,6 +12,13 @@ const geistSans = Geist({
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
+  subsets: ["latin"],
+});
+
+const instrumentSerif = Instrument_Serif({
+  variable: "--font-serif",
+  weight: "400",
+  style: ["normal", "italic"],
   subsets: ["latin"],
 });
 
@@ -50,7 +57,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#000000",
+  themeColor: "#0c0b09",
   colorScheme: "dark",
 };
 
@@ -62,16 +69,15 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${geistSans.variable} ${geistMono.variable} ${instrumentSerif.variable} antialiased`}
     >
-      <body className="flex h-full bg-black font-sans text-zinc-100">
-        {/* The outlined page panel behind the content */}
-        <div className="fixed inset-0 flex justify-center sm:px-8">
-          <div className="flex w-full max-w-7xl lg:px-8">
-            <div className="w-full bg-black ring-1 ring-zinc-300/20" />
-          </div>
-        </div>
-        <div className="relative flex w-full flex-col">
+      <body className="relative min-h-screen bg-bg font-sans text-ink">
+        {/* Blueprint grid behind the top of every page */}
+        <div
+          aria-hidden
+          className="bg-grid pointer-events-none absolute inset-x-0 top-0 h-[900px]"
+        />
+        <div className="relative flex min-h-screen flex-col">
           <Header />
           <main className="flex-auto">{children}</main>
           <Footer />

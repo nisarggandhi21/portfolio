@@ -3,57 +3,76 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
-import { FiChevronDown, FiX } from "react-icons/fi";
+import { FiMenu, FiX } from "react-icons/fi";
 
+import Container from "./Container";
 import { isActive, navItems } from "./navigation";
+import { profile } from "@/data";
 
-const pill =
-  "rounded-full bg-zinc-900/60 text-sm font-medium text-zinc-200 shadow-lg shadow-black/20 ring-1 ring-white/10 backdrop-blur";
+// Round monogram used as the site mark
+const Mark = () => (
+  <span className="flex h-9 w-9 items-center justify-center rounded-full border border-ink/70 font-serif text-lg leading-none text-ink">
+    N
+  </span>
+);
 
 const Header = () => {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="relative z-50 pt-6">
-      <div className="sm:px-8">
-        <div className="mx-auto w-full max-w-7xl lg:px-8">
-          <div className="relative flex justify-end px-4 sm:px-8 md:justify-center lg:px-12">
-            {/* Desktop: pill of links */}
-            <nav aria-label="Main" className="hidden md:block">
-              <ul className={`flex px-3 ${pill}`}>
-                {navItems.map((item) => (
+    <header className="relative z-50 border-b border-line bg-bg/80 backdrop-blur">
+      <Container className="flex h-[72px] items-center justify-between">
+        <div className="flex items-center gap-10">
+          <Link href="/" className="flex items-center gap-3">
+            <Mark />
+            <span className="font-serif text-[1.7rem] leading-none tracking-tight">
+              {profile.name}
+            </span>
+          </Link>
+
+          <nav aria-label="Main" className="hidden md:block">
+            <ul className="flex gap-7 text-[15px]">
+              {navItems.map((item) => {
+                const active = isActive(pathname, item.href);
+                return (
                   <li key={item.href}>
                     <Link
                       href={item.href}
-                      className={`relative block px-3 py-2 transition ${
-                        isActive(pathname, item.href)
-                          ? "text-accent"
-                          : "hover:text-accent"
+                      className={`relative py-2 transition ${
+                        active ? "text-ink" : "text-muted hover:text-ink"
                       }`}
                     >
                       {item.name}
+                      {active && (
+                        <span className="absolute inset-x-0 -bottom-[3px] h-0.5 rounded-full bg-accent" />
+                      )}
                     </Link>
                   </li>
-                ))}
-              </ul>
-            </nav>
-
-            {/* Mobile: "Menu" pill that opens a panel */}
-            <div className="md:hidden">
-              <button
-                type="button"
-                onClick={() => setOpen(true)}
-                aria-expanded={open}
-                className={`flex items-center gap-2 px-4 py-2 ${pill}`}
-              >
-                Menu
-                <FiChevronDown aria-hidden className="text-zinc-400" />
-              </button>
-            </div>
-          </div>
+                );
+              })}
+            </ul>
+          </nav>
         </div>
-      </div>
+
+        <div className="flex items-center gap-3">
+          <a
+            href={`mailto:${profile.email}`}
+            className="hidden rounded-lg bg-cream px-4 py-2 text-[15px] font-medium text-bg transition hover:bg-white sm:inline-flex"
+          >
+            Get in touch
+          </a>
+          <button
+            type="button"
+            onClick={() => setOpen(true)}
+            aria-label="Open menu"
+            aria-expanded={open}
+            className="flex h-10 w-10 items-center justify-center rounded-lg border border-line bg-surface text-ink md:hidden"
+          >
+            <FiMenu aria-hidden />
+          </button>
+        </div>
+      </Container>
 
       {open && (
         <div className="fixed inset-0 z-50 md:hidden">
@@ -63,27 +82,29 @@ const Header = () => {
             onClick={() => setOpen(false)}
             className="absolute inset-0 bg-black/80 backdrop-blur-sm"
           />
-          <div className="absolute inset-x-4 top-8 rounded-3xl bg-zinc-900 p-8 ring-1 ring-zinc-800">
+          <div className="absolute inset-x-4 top-4 rounded-xl border border-line bg-surface p-6">
             <div className="flex items-center justify-between">
-              <h2 className="text-sm font-medium text-zinc-400">Navigation</h2>
+              <p className="label text-muted">Navigate</p>
               <button
                 type="button"
                 aria-label="Close menu"
                 onClick={() => setOpen(false)}
-                className="-m-1 p-1 text-zinc-400"
+                className="-m-1 p-1 text-muted"
               >
                 <FiX aria-hidden className="h-5 w-5" />
               </button>
             </div>
-            <nav className="mt-6" aria-label="Main">
-              <ul className="-my-2 divide-y divide-zinc-100/5 text-base text-zinc-300">
+            <nav className="mt-4" aria-label="Main">
+              <ul className="divide-y divide-line">
                 {navItems.map((item) => (
                   <li key={item.href}>
                     <Link
                       href={item.href}
                       onClick={() => setOpen(false)}
-                      className={`block py-2 ${
-                        isActive(pathname, item.href) ? "text-accent" : ""
+                      className={`block py-3 font-serif text-2xl ${
+                        isActive(pathname, item.href)
+                          ? "text-accent"
+                          : "text-ink"
                       }`}
                     >
                       {item.name}
@@ -92,6 +113,12 @@ const Header = () => {
                 ))}
               </ul>
             </nav>
+            <a
+              href={`mailto:${profile.email}`}
+              className="mt-5 flex justify-center rounded-lg bg-cream px-4 py-3 font-medium text-bg"
+            >
+              Get in touch
+            </a>
           </div>
         </div>
       )}

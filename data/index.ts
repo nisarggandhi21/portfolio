@@ -171,6 +171,8 @@ export const profile = {
   email: "nisarggandhi21@gmail.com",
   summary:
     "Full Stack Developer with 2.7 years of experience building scalable web applications using React.js, Next.js, and Node.js. Promoted within 12 months at Withum for delivering high-impact solutions across frontend, backend, and DevOps, including US tax auditing workflows.",
+  // Shown as the quote in the homepage experience card
+  highlight: "Promoted from Analyst to Consultant at Withum within 12 months.",
   wakatimeProfile: "https://wakatime.com/@nisarggandhi21",
   links: [
     { label: "GitHub", href: "https://github.com/nisarggandhi21" },

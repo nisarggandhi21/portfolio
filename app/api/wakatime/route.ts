@@ -13,6 +13,8 @@ export async function GET() {
       headers: {
         Authorization: `Basic ${Buffer.from(apiKey).toString("base64")}`,
       },
+      // Cache the WakaTime response for an hour instead of calling the API on every visit
+      next: { revalidate: 3600 },
     });
 
     if (!response.ok) {

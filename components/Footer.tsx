@@ -19,11 +19,11 @@ const Footer = () => {
 
       <div className="flex flex-col items-center">
         <h1 className="heading lg:max-w-[45vw]">
-          Want to connect? <span className="text-purple">Let's talk</span> tech,
+          Want to connect? <span className="text-purple">Let&apos;s talk</span> tech,
           code or anything in between!
         </h1>
         <p className="text-white-200 md:mt-10 my-5 text-center">
-          Feel free to reach out—whether it's to chat about development, share
+          Feel free to reach out—whether it&apos;s to chat about development, share
           ideas, or just say hi.
         </p>
         <a href="mailto:nisarggandhi21@gmail.com">

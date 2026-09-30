@@ -43,6 +43,12 @@ export function formatDuration(totalMonths: number): string {
   return parts.join(" ") || "0 mos";
 }
 
+// Total experience rounded to whole years, as on the résumé: 35 -> "3 years"
+export function formatYears(totalMonths: number): string {
+  const years = Math.max(1, Math.round(totalMonths / 12));
+  return `${years} ${years === 1 ? "year" : "years"}`;
+}
+
 // "2024-07" -> "Jul 2024"; no date -> "Present"
 export function formatMonth(ym?: string): string {
   if (!ym) return "Present";

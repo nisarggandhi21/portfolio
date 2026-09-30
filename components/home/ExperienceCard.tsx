@@ -65,7 +65,7 @@ const ExperienceCard = () => {
         </div>
       )}
 
-      <div className="flex items-center justify-between gap-4 border-t border-line px-5 py-4 sm:px-6">
+      <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2 border-t border-line px-5 py-4 sm:px-6">
         <span className="label text-faint">
           {firstYear} → {lastYear}
         </span>

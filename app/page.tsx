@@ -4,6 +4,7 @@ import { FiArrowRight, FiArrowUpRight } from "react-icons/fi";
 import ArticleVerdicts from "@/components/ArticleVerdicts";
 import Container from "@/components/Container";
 import ExperienceCard from "@/components/home/ExperienceCard";
+import FindMe from "@/components/home/FindMe";
 import SectionHeader from "@/components/SectionHeader";
 import {
   Label,
@@ -29,17 +30,11 @@ export default async function Home() {
 
   const currentJob = workExperience.find((job) => !job.end);
 
-  const findMe = [
-    ...profile.links,
-    { label: "WakaTime", href: profile.wakatimeProfile },
-    { label: "Email", href: `mailto:${profile.email}` },
-  ];
-
   return (
     <>
       {/* Hero */}
-      <Container className="grid gap-14 pt-16 sm:pt-24 lg:grid-cols-[1.1fr_1fr] lg:gap-16 lg:pt-32">
-        <div>
+      <Container className="grid grid-cols-1 gap-14 pt-16 sm:pt-24 lg:grid-cols-[1.1fr_1fr] lg:gap-16 lg:pt-32">
+        <div className="min-w-0">
           <Label dash>
             Portfolio ·{" "}
             {profile.availability ||
@@ -64,32 +59,9 @@ export default async function Home() {
           </div>
 
           <Label className="mt-12">Or find me on</Label>
-          <ul className="mt-4 flex flex-wrap gap-3">
-            {findMe.map((link, i) => (
-              <li key={link.label}>
-                <a
-                  href={link.href}
-                  {...(!link.href.startsWith("mailto:") && {
-                    target: "_blank",
-                    rel: "noopener noreferrer",
-                  })}
-                  className={`inline-flex items-center gap-2 rounded-full border px-4 py-2 text-[15px] transition ${
-                    i === 0
-                      ? "border-ink/70 text-ink"
-                      : "border-line text-muted hover:border-muted/60 hover:text-ink"
-                  }`}
-                >
-                  <span
-                    aria-hidden
-                    className={`h-1.5 w-1.5 rounded-full ${
-                      i === 0 ? "bg-accent" : "bg-faint"
-                    }`}
-                  />
-                  {link.label}
-                </a>
-              </li>
-            ))}
-          </ul>
+          <div className="mt-4 max-w-xl">
+            <FindMe />
+          </div>
         </div>
 
         <div className="lg:pt-6">

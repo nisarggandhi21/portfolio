@@ -22,9 +22,6 @@ export const siteDescription =
 // The experience page is served from its own subdomain (see middleware.ts)
 export const workUrl = "https://work.nisarg-gandhi.com";
 
-// Only production links across the main site and the subdomain;
-// previews and local dev keep relative paths
-const isProduction = process.env.VERCEL_ENV === "production";
-export const workHref = isProduction ? workUrl : "/work";
-export const mainHref = (path: string) =>
-  isProduction ? `${siteUrl}${path}` : path;
+// Link to the work site's home: its own domain in production, /work elsewhere
+export const workHref =
+  process.env.VERCEL_ENV === "production" ? workUrl : "/work";

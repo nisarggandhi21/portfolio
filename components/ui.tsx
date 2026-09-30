@@ -110,3 +110,10 @@ export const SecondaryButton = ({
     {children}
   </a>
 );
+
+// Round monogram used as the site mark
+export const Monogram = () => (
+  <span className="flex h-9 w-9 items-center justify-center rounded-full border border-ink/70 font-serif text-lg leading-none text-ink">
+    N
+  </span>
+);

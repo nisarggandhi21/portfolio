@@ -12,7 +12,7 @@ import {
   workExperience,
 } from "@/data";
 import { formatDuration, formatMonth, monthsBetween } from "@/lib/dates";
-import { rssAlternate, workUrl } from "@/lib/site";
+import { workUrl } from "@/lib/site";
 
 const title = "Work | Nisarg Gandhi";
 const description =
@@ -21,7 +21,7 @@ const description =
 export const metadata: Metadata = {
   title,
   description,
-  alternates: { canonical: workUrl, types: rssAlternate },
+  alternates: { canonical: workUrl },
   openGraph: {
     type: "website",
     url: workUrl,

@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 import { getAllPosts } from "@/lib/blog";
-import { siteUrl, workUrl } from "@/lib/site";
+import { siteUrl } from "@/lib/site";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const posts = getAllPosts();
@@ -11,12 +11,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 1,
-    },
-    {
-      url: workUrl,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.9,
     },
     ...(posts.length > 0
       ? [

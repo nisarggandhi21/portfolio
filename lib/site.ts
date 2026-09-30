@@ -14,7 +14,7 @@ export const rssAlternate = {
   ],
 };
 
-export const siteTitle = "Nisarg Gandhi | Software Developer";
+export const siteTitle = "Nisarg Gandhi | Full Stack Developer";
 
 export const siteDescription =
-  "Portfolio of Nisarg Gandhi, a software developer in Mumbai, India, building fast, scalable web apps with React, Next.js and TypeScript.";
+  "Portfolio of Nisarg Gandhi, a Full Stack Developer in Mumbai, India, building scalable web apps and AI features with React.js, Next.js, Node.js and Python.";

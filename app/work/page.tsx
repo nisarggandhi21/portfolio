@@ -17,7 +17,7 @@ import { rssAlternate } from "@/lib/site";
 export const metadata: Metadata = {
   title: "Work | Nisarg Gandhi",
   description:
-    "Experience, projects and skills of Nisarg Gandhi, a Full Stack Developer working with React.js, Next.js and Node.js.",
+    "Experience, projects and skills of Nisarg Gandhi, a Full Stack Developer working with React.js, Next.js, Node.js and Python.",
   alternates: { canonical: "/work", types: rssAlternate },
 };
 
@@ -59,7 +59,7 @@ export default function WorkPage() {
           size="lg"
           label={`The work · ${workExperience.length} roles · ${formatDuration(totalMonths)}`}
           title="Where I've worked"
-          intro="From an AI chat assistant and virtual try-on at Sugar Cosmetics to React dashboards, GraphQL APIs and CI/CD pipelines at Withum: where I've worked, what I built and the results it delivered."
+          intro="From an AI chat assistant, virtual try-on and Python microservices at Sugar Cosmetics to React dashboards, GraphQL APIs and CI/CD pipelines at Withum: where I've worked, what I built and the results it delivered."
         />
 
         <div className="mt-14 space-y-8">

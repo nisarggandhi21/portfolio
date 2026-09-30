@@ -47,9 +47,9 @@ export default async function Home() {
             </span>
           </h1>
           <p className="mt-8 max-w-xl text-xl leading-relaxed text-muted">
-            {formatDuration(totalMonths)} building scalable web applications
-            with React.js, Next.js and Node.js, and now LLM-powered features
-            with RAG and LangChain
+            {formatDuration(totalMonths)} building scalable web applications and
+            microservices with React.js, Next.js, Node.js and Python, now
+            shipping AI features like a RAG chat assistant and a virtual try-on
             {currentJob ? ` at ${currentJob.company}` : ""}. Based in{" "}
             {profile.location}.
           </p>

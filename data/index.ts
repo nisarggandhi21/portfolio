@@ -29,45 +29,28 @@ export const workExperience: Experience[] = [
     location: "Mumbai, India",
     projects: [
       {
-        name: "Virtual Try-On",
-        stack: [],
+        name: "AI & Customer Features",
+        stack: ["React.js", "RAG", "LangChain", "LLM APIs"],
         points: [
-          "Engineered a virtual try-on feature enabling users to upload a selfie and preview Sugar cosmetics products live on their face, generating realistic product recommendations and real-time visual overlays.",
+          "Engineered a virtual try-on feature with React.js and a face tracking library, letting shoppers upload a selfie and preview Sugar cosmetics products live on their face with real-time overlays and product recommendations.",
+          "Built an AI chat assistant using RAG (Retrieval-Augmented Generation) and LangChain, integrating **3 internal data sources** to answer product and support queries.",
         ],
       },
       {
-        name: "AI Chat Assistant",
-        stack: ["RAG", "LangChain"],
+        name: "Internal Dashboard Redesign",
+        stack: ["React.js", "GitHub Spec Kit"],
         points: [
-          "Built an AI-powered chat assistant using RAG (Retrieval-Augmented Generation) and LangChain, integrating **3 internal data sources** to answer product and support queries.",
+          "Redesigned the entire internal dashboard UI using GitHub Spec Kit (spec-driven development), aligning design and implementation through structured specs.",
+          "Introduced a unified theme system and reusable shared components, improving page load time by **30%**.",
         ],
       },
       {
-        name: "Storefront Performance",
-        stack: ["Next.js"],
+        name: "Backend & Cloud Optimization",
+        stack: ["Python", "Docker", "Redis", "AWS Lambda", "EC2"],
         points: [
-          "Optimized the Next.js storefront with image optimization, code splitting and ISR, raising the Lighthouse performance score from **62 to 90+** and cutting LCP by **40%**.",
-        ],
-      },
-      {
-        name: "Cart & Checkout",
-        stack: ["React"],
-        points: [
-          "Revamped the cart and checkout flow in React with optimistic updates and address auto-fill, reducing checkout drop-off by **15%**.",
-        ],
-      },
-      {
-        name: "Inventory Dashboard",
-        stack: ["Redis"],
-        points: [
-          "Introduced Redis caching in an internal warehouse and stock management dashboard used by the operations team, reducing redundant API calls and improving data load performance for real-time inventory tracking.",
-        ],
-      },
-      {
-        name: "Infrastructure",
-        stack: ["AWS Lambda", "EC2"],
-        points: [
-          "Migrated **5 services** from EC2 to AWS Lambda and right-sized instance types, reducing monthly infrastructure costs and eliminating idle compute overhead.",
+          "Created backend microservices in Python and containerized them with Docker, decoupling business logic from the core platform to improve scalability and maintainability.",
+          "Introduced Redis caching in an internal warehouse and stock management dashboard used by the operations team, reducing redundant API calls and improving data load time by **20%** for real-time inventory tracking.",
+          "Migrated **5 services** from EC2 to AWS Lambda and optimized instance types, reducing monthly infrastructure costs and eliminating idle compute overhead.",
         ],
       },
     ],
@@ -86,7 +69,7 @@ export const workExperience: Experience[] = [
         name: "Analytics Dashboard",
         stack: ["React.js", "Next.js", "Node.js", "GraphQL"],
         points: [
-          "Architected a React-based analytics dashboard for US tax auditing workflows, improving data rendering efficiency and reducing code duplication by **30%**.",
+          "Architected a React analytics dashboard for US tax auditing workflows, improving data rendering efficiency and reducing code duplication by **30%**.",
           "Implemented GraphQL APIs, decreasing payload size by **35%** and accelerating response time by **20%**.",
         ],
       },
@@ -100,19 +83,18 @@ export const workExperience: Experience[] = [
       },
       {
         name: "API Services & Data Optimization",
-        stack: ["Node.js", "Java", "PostgreSQL", "MongoDB"],
+        stack: ["Node.js", "PostgreSQL", "MongoDB"],
         points: [
-          "Developed a Java-based microservice to handle asynchronous report generation, decoupling it from the core platform and improving overall system scalability.",
-          "Designed backend APIs powering **5+ production features**, increasing data delivery efficiency and reducing response latency by **20%**.",
+          "Developed a Java microservice to handle asynchronous report generation, decoupling it from the core platform and improving overall system scalability.",
           "Refined database queries and indexing strategies, cutting execution time by **40%** and lowering load by **25%**.",
         ],
       },
       {
-        name: "CI/CD Monitoring Integration",
-        stack: ["GitHub Actions", "Slack API"],
+        name: "CI/CD, Testing & Monitoring",
+        stack: ["GitHub Actions", "Cypress", "Slack API"],
         points: [
-          "Developed a Slack-based notification system for CI/CD pipelines, eliminating manual monitoring effort and improving alert visibility.",
-          "Deployed applications via CI/CD pipelines in an AWS environment, improving system reliability and reducing downtime during releases by **~50%**.",
+          "Deployed applications to AWS through GitHub Actions CI/CD pipelines and built Slack alerts for pipeline status, eliminating manual monitoring and reducing release downtime by **~50%**.",
+          "Wrote Cypress end-to-end tests for critical user flows, catching **30+ bugs** in early regression testing before release.",
         ],
       },
     ],
@@ -127,11 +109,17 @@ export const workExperience: Experience[] = [
     location: "Bengaluru, India",
     projects: [
       {
-        name: "Client Web Application",
-        stack: ["React.js", "Next.js", "Node.js", "Express.js", "MongoDB"],
+        name: "Transportation Business Platform",
+        stack: ["React.js", "Node.js"],
         points: [
-          "Delivered and deployed features across **2 full-stack web applications** using React.js, Next.js, and Node.js.",
-          "Maintained **zero critical production bugs** across **3 deployments** while consistently delivering **2+ features per sprint**.",
+          "Built a full-stack website for a client in the transportation business using React.js and Node.js, optimizing frontend rendering and API performance.",
+        ],
+      },
+      {
+        name: "Walnut Folks Landing Page",
+        stack: ["WordPress", "SEO"],
+        points: [
+          "Developed the company's landing page on WordPress, raising its Google PageSpeed score from **70 to 90** and improving SEO for better search visibility.",
         ],
       },
     ],
@@ -148,7 +136,7 @@ export const workExperience: Experience[] = [
         name: "Client Website Development",
         stack: ["HTML", "CSS", "JavaScript", "Bootstrap"],
         points: [
-          "Executed end-to-end development of a client-facing website with **100% ownership**, covering design, responsiveness, and deployment.",
+          "Executed end-to-end development of a client website with **100% ownership**, covering design, responsiveness, and deployment.",
           "Engineered a fully responsive UI supporting **3+ device types**, ensuring consistent user experience across platforms.",
         ],
       },
@@ -177,6 +165,7 @@ export const skillGroups = [
     skills: [
       "Node.js",
       "Express.js",
+      "Python",
       "Java",
       "REST APIs",
       "GraphQL",
@@ -214,23 +203,20 @@ export const skillGroups = [
       "LangChain",
       "Prompt Engineering",
       "Claude Code (Spec-Driven Development)",
-      "AI-powered Feature Development",
+      "AI Feature Development",
     ],
   },
 ];
 
 export const profile = {
   name: "Nisarg Gandhi",
-  title: "Full Stack Developer",
   location: "Mumbai, India",
   // Set to e.g. "Open to new roles" to show an availability note in the hero
   availability: "",
   email: "nisarggandhi21@gmail.com",
-  summary:
-    "Full Stack Developer with 2.7 years of experience architecting scalable web applications using React.js, Next.js, and Node.js, currently building LLM-powered features (RAG, LangChain) in production. Promoted within 12 months at Withum for delivering high-impact solutions across frontend, backend, and DevOps for US tax auditing workflows.",
   // Shown as the quote in the homepage experience card
   highlight:
-    "Raised the Sugar Cosmetics storefront's Lighthouse score from 62 to 90+ and cut LCP by 40%.",
+    "Built an AI chat assistant with RAG and LangChain that answers product and support queries from 3 internal data sources.",
   wakatimeProfile: "https://wakatime.com/@nisarggandhi21",
   links: [
     { label: "GitHub", href: "https://github.com/nisarggandhi21" },
@@ -244,10 +230,10 @@ export const personalProjects = [
     name: "Taste of Home",
     href: "https://taste-of-home.nisarg-gandhi.com/",
     github: "https://github.com/nisarggandhi21/Taste-of-Home",
-    period: "Dec 2023 – Present",
+    period: "Dec 2023 – Apr 2024",
     stack: ["MERN Stack", "Socket.io", "Stripe", "JWT"],
     description:
-      "A hyperlocal food marketplace for home-based food producers, bridging a gap left by Swiggy/Zomato's GST mandate. Built on the MERN stack with 7 core features: seller onboarding, product listings, real-time chat (Socket.io), Stripe payments, JWT auth, cart management, and an admin dashboard with RBAC.",
+      "A hyperlocal food marketplace for home-based food producers, filling a gap left by Swiggy/Zomato's GST mandate. Built on the MERN stack with 7 core features: seller onboarding, product listings, real-time chat (Socket.io), Stripe payments, JWT auth, cart management, and an admin dashboard with RBAC.",
   },
 ];
 
@@ -255,11 +241,11 @@ export const awards = [
   {
     title: "Gotcha Award (3×)",
     detail:
-      "Received from a Withum Partner for consistent, high-impact performance.",
+      "Received from a Withum Partner for consistent performance and delivery.",
   },
   {
     title: "22+ Withum Bucks",
-    detail: "Earned at Withum for consistent, high-impact performance.",
+    detail: "Earned at Withum for consistent performance and delivery.",
   },
 ];
 

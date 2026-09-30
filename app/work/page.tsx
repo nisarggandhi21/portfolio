@@ -12,13 +12,23 @@ import {
   workExperience,
 } from "@/data";
 import { formatDuration, formatMonth, monthsBetween } from "@/lib/dates";
-import { rssAlternate } from "@/lib/site";
+import { rssAlternate, workUrl } from "@/lib/site";
+
+const title = "Work | Nisarg Gandhi";
+const description =
+  "Experience, projects and skills of Nisarg Gandhi, a Full Stack Developer working with React.js, Next.js, Node.js and Python.";
 
 export const metadata: Metadata = {
-  title: "Work | Nisarg Gandhi",
-  description:
-    "Experience, projects and skills of Nisarg Gandhi, a Full Stack Developer working with React.js, Next.js, Node.js and Python.",
-  alternates: { canonical: "/work", types: rssAlternate },
+  title,
+  description,
+  alternates: { canonical: workUrl, types: rssAlternate },
+  openGraph: {
+    type: "website",
+    url: workUrl,
+    siteName: "Nisarg Gandhi",
+    title,
+    description,
+  },
 };
 
 // Rebuild daily so durations of the current role ("Present") stay accurate

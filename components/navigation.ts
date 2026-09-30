@@ -1,9 +1,10 @@
+import { mainHref, workHref } from "@/lib/site";
+
+// `segment` is the top-level route an item belongs to, used to mark it active
 export const navItems = [
-  { name: "Home", href: "/" },
-  { name: "Work", href: "/work" },
-  { name: "Articles", href: "/blog" },
+  { name: "Home", href: mainHref("/"), segment: null },
+  { name: "Articles", href: mainHref("/blog"), segment: "blog" },
+  { name: "Work", href: workHref, segment: "work" },
 ];
 
-export function isActive(pathname: string, href: string) {
-  return href === "/" ? pathname === "/" : pathname.startsWith(href);
-}
+export type NavItem = (typeof navItems)[number];

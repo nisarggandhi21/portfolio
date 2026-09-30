@@ -1,18 +1,13 @@
 import Link from "next/link";
-import { FiArrowRight, FiArrowUpRight } from "react-icons/fi";
+import { FiArrowRight } from "react-icons/fi";
 
 import ArticleVerdicts from "@/components/ArticleVerdicts";
 import Container from "@/components/Container";
-import ExperienceCard from "@/components/home/ExperienceCard";
+import AboutCard from "@/components/home/AboutCard";
 import FindMe from "@/components/home/FindMe";
 import SectionHeader from "@/components/SectionHeader";
-import {
-  Label,
-  LogoTile,
-  PrimaryButton,
-  SecondaryButton,
-} from "@/components/ui";
-import { education, profile, workExperience } from "@/data";
+import { Label, PrimaryButton, SecondaryButton } from "@/components/ui";
+import { profile, workExperience } from "@/data";
 import { getAllPosts } from "@/lib/blog";
 import { formatDuration, monthsBetween } from "@/lib/dates";
 import { getCodingHours } from "@/lib/wakatime";
@@ -54,7 +49,7 @@ export default async function Home() {
             {profile.location}.
           </p>
           <div className="mt-10 flex flex-wrap gap-4">
-            <PrimaryButton href="/work">View my work</PrimaryButton>
+            <PrimaryButton href="#about">About me</PrimaryButton>
             <SecondaryButton href="/blog">Read my articles</SecondaryButton>
           </div>
 
@@ -65,9 +60,38 @@ export default async function Home() {
         </div>
 
         <div className="lg:pt-6">
-          <ExperienceCard />
+          <AboutCard codingHours={codingHours} />
         </div>
       </Container>
+
+      {/* About */}
+      <section id="about" className="mt-28 scroll-mt-8 sm:mt-36">
+        <Container>
+          <SectionHeader label="About" title="A little about me" />
+          <div className="mt-12 grid gap-10 lg:grid-cols-[1fr_1.1fr] lg:gap-16">
+            <p className="font-serif text-3xl leading-snug text-ink sm:text-4xl">
+              I build web products end to end, from the interface people use to
+              the services and cloud infrastructure behind it.
+            </p>
+            <div className="space-y-5 text-lg leading-relaxed text-muted">
+              <p>
+                Most of my work is React.js and Next.js on the front end, with
+                Node.js or Python services behind it, containerized with Docker
+                and deployed on AWS.
+              </p>
+              <p>
+                Lately I&apos;ve been focused on applied AI: chat assistants
+                built on retrieval-augmented generation, LLM APIs, and
+                spec-driven development with Claude Code and GitHub Spec Kit.
+              </p>
+              <p>
+                I also write about AI agents and building with LLMs. You&apos;ll
+                find those articles below.
+              </p>
+            </div>
+          </div>
+        </Container>
+      </section>
 
       {/* Articles */}
       {posts.length > 0 && (
@@ -92,69 +116,6 @@ export default async function Home() {
           </Link>
         </Container>
       )}
-
-      {/* At a glance */}
-      <Container className="mt-28 sm:mt-36">
-        <SectionHeader label="At a glance" title="By the numbers" />
-        <div className="mt-12 grid gap-6 md:grid-cols-3">
-          <div className="flex flex-col rounded-xl border border-line bg-surface p-6 sm:p-7">
-            <Label>Coding · WakaTime</Label>
-            {codingHours !== null ? (
-              <p className="mt-8 font-serif text-6xl leading-none text-ink">
-                {codingHours.toLocaleString("en-IN")}
-                <span className="ml-2 font-sans text-lg text-muted">hours</span>
-              </p>
-            ) : (
-              <p className="mt-8 font-serif text-4xl leading-tight text-ink">
-                Tracked daily
-              </p>
-            )}
-            <a
-              href={profile.wakatimeProfile}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-auto inline-flex items-center gap-1 pt-8 text-[15px] text-muted transition hover:text-accent"
-            >
-              {codingHours !== null
-                ? "of coding on WakaTime"
-                : "See my coding stats on WakaTime"}
-              <FiArrowUpRight aria-hidden />
-            </a>
-          </div>
-
-          <div className="flex flex-col rounded-xl border border-line bg-surface p-6 sm:p-7">
-            <Label>Experience</Label>
-            <p className="mt-8 font-serif text-6xl leading-none text-ink">
-              {formatDuration(totalMonths)}
-            </p>
-            <p className="mt-auto pt-8 text-[15px] text-muted">
-              across {workExperience.length} companies
-            </p>
-          </div>
-
-          <div className="flex flex-col rounded-xl border border-line bg-surface p-6 sm:p-7">
-            <Label>Education</Label>
-            <ul className="mt-6 space-y-5">
-              {education.map((item) => (
-                <li key={item.school} className="flex items-center gap-4">
-                  <LogoTile name={item.school} logo={item.logo} size="sm" />
-                  <div className="min-w-0">
-                    <p className="font-medium text-ink">
-                      {item.shortDegree}
-                      <span className="ml-2 font-mono text-xs text-faint">
-                        {item.period
-                          .replace(/[A-Za-z]{3} /g, "")
-                          .replace(" – ", "–")}
-                      </span>
-                    </p>
-                    <p className="truncate text-sm text-muted">{item.school}</p>
-                  </div>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-      </Container>
     </>
   );
 }

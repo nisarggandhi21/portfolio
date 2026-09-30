@@ -18,3 +18,14 @@ export const siteTitle = "Nisarg Gandhi | Full Stack Developer";
 
 export const siteDescription =
   "Portfolio of Nisarg Gandhi, a Full Stack Developer in Mumbai, India, building scalable web apps and AI features with React.js, Next.js, Node.js and Python.";
+
+// The experience page is served from its own subdomain (see middleware.ts)
+export const rootDomain = "nisarg-gandhi.com";
+export const workUrl = `https://work.${rootDomain}`;
+
+// Only production links across the main site and the subdomain;
+// previews and local dev keep relative paths
+const isProduction = process.env.VERCEL_ENV === "production";
+export const workHref = isProduction ? workUrl : "/work";
+export const mainHref = (path: string) =>
+  isProduction ? `${siteUrl}${path}` : path;

@@ -3,6 +3,7 @@ import { Geist, Geist_Mono, Instrument_Serif } from "next/font/google";
 import "./globals.css";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
+import { navItems } from "@/components/navigation";
 import { rssAlternate, siteDescription, siteTitle, siteUrl } from "@/lib/site";
 
 const geistSans = Geist({
@@ -78,7 +79,7 @@ export default function RootLayout({
           className="bg-grid pointer-events-none absolute inset-x-0 top-0 h-[900px]"
         />
         <div className="relative flex min-h-screen flex-col">
-          <Header />
+          <Header items={navItems} />
           <main className="flex-auto">{children}</main>
           <Footer />
         </div>

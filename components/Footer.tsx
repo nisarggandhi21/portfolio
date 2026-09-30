@@ -4,6 +4,7 @@ import Container from "./Container";
 import CurrentYear from "./CurrentYear";
 import { navItems } from "./navigation";
 import { profile } from "@/data";
+import { mainHref } from "@/lib/site";
 
 const Footer = () => (
   <footer className="mt-32 border-t border-line">
@@ -29,7 +30,7 @@ const Footer = () => (
             {link.label}
           </a>
         ))}
-        <a href="/feed.xml" className="transition hover:text-ink">
+        <a href={mainHref("/feed.xml")} className="transition hover:text-ink">
           RSS
         </a>
       </div>

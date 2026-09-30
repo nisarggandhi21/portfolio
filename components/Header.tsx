@@ -1,12 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { useSelectedLayoutSegment } from "next/navigation";
 import { useState } from "react";
 import { FiMenu, FiX } from "react-icons/fi";
 
 import Container from "./Container";
-import { isActive, navItems } from "./navigation";
+import type { NavItem } from "./navigation";
 import { profile } from "@/data";
 
 // Round monogram used as the site mark
@@ -16,15 +16,15 @@ const Mark = () => (
   </span>
 );
 
-const Header = () => {
-  const pathname = usePathname();
+const Header = ({ items }: { items: NavItem[] }) => {
+  const segment = useSelectedLayoutSegment();
   const [open, setOpen] = useState(false);
 
   return (
     <header className="relative z-50 border-b border-line bg-bg/80 backdrop-blur">
       <Container className="flex h-[72px] items-center justify-between">
         <div className="flex items-center gap-10">
-          <Link href="/" className="flex items-center gap-3">
+          <Link href={items[0].href} className="flex items-center gap-3">
             <Mark />
             <span className="font-serif text-[1.7rem] leading-none tracking-tight">
               {profile.name}
@@ -33,8 +33,8 @@ const Header = () => {
 
           <nav aria-label="Main" className="hidden md:block">
             <ul className="flex gap-7 text-[15px]">
-              {navItems.map((item) => {
-                const active = isActive(pathname, item.href);
+              {items.map((item) => {
+                const active = item.segment === segment;
                 return (
                   <li key={item.href}>
                     <Link
@@ -96,15 +96,13 @@ const Header = () => {
             </div>
             <nav className="mt-4" aria-label="Main">
               <ul className="divide-y divide-line">
-                {navItems.map((item) => (
+                {items.map((item) => (
                   <li key={item.href}>
                     <Link
                       href={item.href}
                       onClick={() => setOpen(false)}
                       className={`block py-3 font-serif text-2xl ${
-                        isActive(pathname, item.href)
-                          ? "text-accent"
-                          : "text-ink"
+                        item.segment === segment ? "text-accent" : "text-ink"
                       }`}
                     >
                       {item.name}

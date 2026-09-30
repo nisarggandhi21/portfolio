@@ -7,13 +7,19 @@ Built with [Next.js](https://nextjs.org) (App Router), TypeScript and Tailwind C
 
 ## Pages
 
-| Route          | What it shows                                                          |
-| -------------- | ---------------------------------------------------------------------- |
-| `/`            | Intro, work summary, latest articles, WakaTime coding hours, education |
-| `/work`        | Full experience, skills, projects, recognition and education           |
-| `/blog`        | All articles                                                           |
-| `/blog/[slug]` | A single article (with its own link-preview image)                     |
-| `/feed.xml`    | RSS feed of the articles                                               |
+| Route                    | What it shows                                                       |
+| ------------------------ | ------------------------------------------------------------------- |
+| `/`                      | Intro, about me (quick facts, education, WakaTime), latest articles |
+| `/blog`                  | All articles                                                        |
+| `/blog/[slug]`           | A single article (with its own link-preview image)                  |
+| `/feed.xml`              | RSS feed of the articles                                            |
+| `work.nisarg-gandhi.com` | Full experience, skills, projects, recognition and education        |
+
+The experience page lives at `app/work/page.tsx`. `middleware.ts` serves it at the root of
+`work.nisarg-gandhi.com`, sends every other path on that subdomain back to the main site, and
+redirects `/work` on the main domain to the subdomain. Locally and in preview deployments it
+is still reachable at `/work`. The subdomain must be added to the Vercel project under
+**Settings → Domains**.
 
 ## Running locally
 

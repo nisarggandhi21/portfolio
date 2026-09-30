@@ -15,11 +15,9 @@ Built with [Next.js](https://nextjs.org) (App Router), TypeScript and Tailwind C
 | `/feed.xml`              | RSS feed of the articles                                            |
 | `work.nisarg-gandhi.com` | Full experience, skills, projects, recognition and education        |
 
-The experience page lives at `app/work/page.tsx`. `middleware.ts` serves it at the root of
-`work.nisarg-gandhi.com`, sends every other path on that subdomain back to the main site, and
-redirects `/work` on the main domain to the subdomain. Locally and in preview deployments it
-is still reachable at `/work`. The subdomain must be added to the Vercel project under
-**Settings → Domains**.
+The experience page lives at `app/work/page.tsx`. `middleware.ts` also serves it at the root of
+`work.nisarg-gandhi.com`; it stays reachable at `/work` everywhere. The subdomain must be added
+to the Vercel project under **Settings → Domains**.
 
 ## Running locally
 

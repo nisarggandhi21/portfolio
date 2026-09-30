@@ -9,7 +9,7 @@ import SectionHeader from "@/components/SectionHeader";
 import { Label, PrimaryButton, SecondaryButton } from "@/components/ui";
 import { profile, workExperience } from "@/data";
 import { getAllPosts } from "@/lib/blog";
-import { formatDuration, monthsBetween } from "@/lib/dates";
+import { formatYears, monthsBetween } from "@/lib/dates";
 import { getCodingHours } from "@/lib/wakatime";
 
 // Re-render at most once an hour so the WakaTime coding hours stay current
@@ -42,7 +42,7 @@ export default async function Home() {
             </span>
           </h1>
           <p className="mt-8 max-w-xl text-xl leading-relaxed text-muted">
-            {formatDuration(totalMonths)} building scalable web applications and
+            {formatYears(totalMonths)} building scalable web applications and
             microservices with React.js, Next.js, Node.js and Python, now
             shipping AI features like a RAG chat assistant and a virtual try-on
             {currentJob ? ` at ${currentJob.company}` : ""}. Based in{" "}

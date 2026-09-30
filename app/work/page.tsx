@@ -11,7 +11,12 @@ import {
   skillGroups,
   workExperience,
 } from "@/data";
-import { formatDuration, formatMonth, monthsBetween } from "@/lib/dates";
+import {
+  formatDuration,
+  formatMonth,
+  formatYears,
+  monthsBetween,
+} from "@/lib/dates";
 import { workUrl } from "@/lib/site";
 
 const title = "Work | Nisarg Gandhi";
@@ -67,7 +72,7 @@ export default function WorkPage() {
         <SectionHeader
           as="h1"
           size="lg"
-          label={`The work · ${workExperience.length} roles · ${formatDuration(totalMonths)}`}
+          label={`The work · ${workExperience.length} roles · ${formatYears(totalMonths)}`}
           title="Where I've worked"
           intro="From an AI chat assistant, virtual try-on and Python microservices at Sugar Cosmetics to React dashboards, GraphQL APIs and CI/CD pipelines at Withum: where I've worked, what I built and the results it delivered."
         />

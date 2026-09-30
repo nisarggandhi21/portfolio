@@ -6,17 +6,12 @@ import { useState } from "react";
 import { FiMenu, FiX } from "react-icons/fi";
 
 import Container from "./Container";
-import type { NavItem } from "./navigation";
+import { navItems } from "./navigation";
+import { Monogram } from "./ui";
 import { profile } from "@/data";
 
-// Round monogram used as the site mark
-const Mark = () => (
-  <span className="flex h-9 w-9 items-center justify-center rounded-full border border-ink/70 font-serif text-lg leading-none text-ink">
-    N
-  </span>
-);
-
-const Header = ({ items }: { items: NavItem[] }) => {
+// Header of the main site
+const Header = () => {
   const segment = useSelectedLayoutSegment();
   const [open, setOpen] = useState(false);
 
@@ -24,8 +19,8 @@ const Header = ({ items }: { items: NavItem[] }) => {
     <header className="relative z-50 border-b border-line bg-bg/80 backdrop-blur">
       <Container className="flex h-[72px] items-center justify-between">
         <div className="flex items-center gap-10">
-          <Link href={items[0].href} className="flex items-center gap-3">
-            <Mark />
+          <Link href="/" className="flex items-center gap-3">
+            <Monogram />
             <span className="font-serif text-[1.7rem] leading-none tracking-tight">
               {profile.name}
             </span>
@@ -33,7 +28,7 @@ const Header = ({ items }: { items: NavItem[] }) => {
 
           <nav aria-label="Main" className="hidden md:block">
             <ul className="flex gap-7 text-[15px]">
-              {items.map((item) => {
+              {navItems.map((item) => {
                 const active = item.segment === segment;
                 return (
                   <li key={item.href}>
@@ -96,7 +91,7 @@ const Header = ({ items }: { items: NavItem[] }) => {
             </div>
             <nav className="mt-4" aria-label="Main">
               <ul className="divide-y divide-line">
-                {items.map((item) => (
+                {navItems.map((item) => (
                   <li key={item.href}>
                     <Link
                       href={item.href}

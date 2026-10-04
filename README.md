@@ -26,6 +26,17 @@ for every other path there, and returns a 404 for `/work` on the main domain. Lo
 preview deployments the work page is at `/work`. The subdomain is added to the Vercel project
 under **Settings → Domains**.
 
+### Link previews and search
+
+- **Preview images** (LinkedIn, X, WhatsApp) are drawn by `lib/og.tsx` in the site's fonts,
+  which live in `assets/fonts/` with their licences. Each page type has its own
+  `opengraph-image.tsx`; articles with a `.jpg` cover use the cover instead.
+- **Titles and descriptions** for previews come from `shareMetadata` in `lib/seo.ts`, so
+  Open Graph and X always match.
+- **Structured data** (schema.org Person, ProfilePage and BlogPosting) helps search engines
+  understand the pages.
+- `robots.txt` and `sitemap.xml` answer per domain: the work site lists only itself.
+
 ## Running locally
 
 Requires Node.js 22.

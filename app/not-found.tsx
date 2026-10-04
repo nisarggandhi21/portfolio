@@ -1,5 +1,11 @@
+import type { Metadata } from "next";
+
 import Container from "@/components/Container";
 import { Label, PrimaryButton } from "@/components/ui";
+
+export const metadata: Metadata = {
+  title: "Page not found | Nisarg Gandhi",
+};
 
 // Shared by both sites, so it only links to the current site's home
 export default function NotFound() {

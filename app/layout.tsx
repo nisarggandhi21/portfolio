@@ -1,7 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono, Instrument_Serif } from "next/font/google";
 import "./globals.css";
-import { rssAlternate, siteDescription, siteTitle, siteUrl } from "@/lib/site";
+import { shareMetadata, siteDescription } from "@/lib/seo";
+import { rssAlternate, siteTitle, siteUrl } from "@/lib/site";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -20,28 +21,17 @@ const instrumentSerif = Instrument_Serif({
   subsets: ["latin"],
 });
 
+const description = siteDescription();
+
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: siteTitle,
-  description: siteDescription,
+  description,
   alternates: {
     canonical: "/",
     types: rssAlternate,
   },
-  openGraph: {
-    type: "website",
-    url: "/",
-    siteName: "Nisarg Gandhi",
-    title: siteTitle,
-    description: siteDescription,
-    locale: "en_US",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: siteTitle,
-    description: siteDescription,
-    creator: "@nisarggandhi21",
-  },
+  ...shareMetadata({ title: siteTitle, description, url: "/" }),
   icons: {
     icon: "/favicon.ico",
     apple: "/apple-touch-icon.png",

@@ -15,7 +15,8 @@ const AboutCard = ({ codingHours }: { codingHours: number | null }) => {
       ? [
           {
             label: "Currently",
-            value: `${currentJob.role} at ${currentJob.company}`,
+            // The main site doesn't name the current employer
+            value: currentJob.role,
           },
         ]
       : []),

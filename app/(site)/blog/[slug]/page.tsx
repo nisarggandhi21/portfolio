@@ -11,6 +11,7 @@ import Container from "@/components/Container";
 import { Label } from "@/components/ui";
 import { formatDate, getAllPosts, getPostBySlug } from "@/lib/blog";
 import JsonLd from "@/components/JsonLd";
+import { ogSize, stripEmoji } from "@/lib/og";
 import { authorRef, shareMetadata } from "@/lib/seo";
 import { rssAlternate, siteUrl } from "@/lib/site";
 
@@ -34,19 +35,26 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: post.description,
     url: `/blog/${post.slug}`,
   });
+  // Drawn by ./og-image/route.tsx
+  const image = {
+    url: `/blog/${post.slug}/og-image`,
+    ...ogSize,
+    alt: stripEmoji(post.title),
+    type: "image/png",
+  };
   return {
     title,
     description: post.description,
     alternates: { canonical: `/blog/${post.slug}`, types: rssAlternate },
-    ...share,
     openGraph: {
       ...share.openGraph,
       type: "article",
       publishedTime: post.date,
       authors: ["Nisarg Gandhi"],
       tags: post.tags,
-      // the preview image comes from ./opengraph-image.tsx
+      images: [image],
     },
+    twitter: { ...share.twitter, images: [image] },
   };
 }
 

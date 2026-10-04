@@ -30,7 +30,8 @@ under **Settings → Domains**.
 
 - **Preview images** (LinkedIn, X, WhatsApp) are drawn by `lib/og.tsx` in the site's fonts,
   which live in `assets/fonts/` with their licences. Each page type has its own
-  `opengraph-image.tsx`; articles with a `.jpg` cover use the cover instead.
+  `opengraph-image.tsx`; articles use `blog/[slug]/og-image/route.tsx` (a `.jpg` cover
+  is used as is).
 - **Titles and descriptions** for previews come from `shareMetadata` in `lib/seo.ts`, so
   Open Graph and X always match.
 - **Structured data** (schema.org Person, ProfilePage and BlogPosting) helps search engines

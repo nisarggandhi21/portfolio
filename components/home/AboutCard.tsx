@@ -20,7 +20,7 @@ const AboutCard = ({ codingHours }: { codingHours: number | null }) => {
           },
         ]
       : []),
-    { label: "Stack", value: "React.js · Next.js · Node.js · Python" },
+    { label: "Stack", value: "React.js · Next.js · Node.js" },
     { label: "Applied AI", value: "RAG · LangChain · LLM APIs" },
     {
       label: "Coding",

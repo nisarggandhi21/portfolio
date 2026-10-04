@@ -23,17 +23,14 @@ export default async function Home() {
     0,
   );
 
-  const currentJob = workExperience.find((job) => !job.end);
-
   return (
     <>
       {/* Hero */}
       <Container className="grid grid-cols-1 gap-14 pt-16 sm:pt-24 lg:grid-cols-[1.1fr_1fr] lg:gap-16 lg:pt-32">
         <div className="min-w-0">
+          {/* The main site doesn't name the current employer */}
           <Label dash>
-            Portfolio ·{" "}
-            {profile.availability ||
-              (currentJob ? `Now at ${currentJob.company}` : profile.location)}
+            Portfolio · {profile.availability || profile.location}
           </Label>
           <h1 className="mt-8 font-serif text-[3.2rem] leading-[0.98] tracking-tight text-ink sm:text-7xl lg:text-[4.6rem]">
             I&apos;m {profile.name},
@@ -44,9 +41,8 @@ export default async function Home() {
           <p className="mt-8 max-w-xl text-xl leading-relaxed text-muted">
             {formatYears(totalMonths)} building scalable web applications and
             microservices with React.js, Next.js, Node.js and Python, now
-            shipping AI features like a RAG chat assistant and a virtual try-on
-            {currentJob ? ` at ${currentJob.company}` : ""}. Based in{" "}
-            {profile.location}.
+            shipping AI features like a RAG chat assistant and a virtual try-on.
+            Based in {profile.location}.
           </p>
           <div className="mt-10 flex flex-wrap gap-4">
             <PrimaryButton href="#about">About me</PrimaryButton>

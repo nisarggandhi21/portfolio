@@ -5,38 +5,20 @@ import { ImageResponse } from "next/og";
 import { formatDate, getAllPosts, getPostBySlug } from "@/lib/blog";
 import { ogCard, ogSize, stripEmoji } from "@/lib/og";
 
-export const size = ogSize;
-export const contentType = "image/png";
+// Link-preview image for each article, rendered once at build time: its
+// cover image when it has one, otherwise a card with the title. Linked from
+// the article's metadata so the image can carry the title as its alt text.
+export const dynamic = "force-static";
+export const dynamicParams = false;
 
 export function generateStaticParams() {
   return getAllPosts().map((post) => ({ slug: post.slug }));
 }
 
-// One image per article, described by the article's title
-export async function generateImageMetadata({
-  params,
-}: {
-  params: Promise<{ slug: string }>;
-}) {
-  const { slug } = await params;
-  const post = getPostBySlug(slug);
-  return [
-    {
-      id: "card",
-      alt: post ? stripEmoji(post.title) : "Article by Nisarg Gandhi",
-      size: ogSize,
-      contentType: "image/png",
-    },
-  ];
-}
-
-// Link-preview image for each article: its cover image when it has one,
-// otherwise a card with the title
-export default async function OpengraphImage({
-  params,
-}: {
-  params: Promise<{ slug: string }>;
-}) {
+export async function GET(
+  _request: Request,
+  { params }: { params: Promise<{ slug: string }> },
+) {
   const { slug } = await params;
   const post = getPostBySlug(slug);
   if (!post) return new Response("Not found", { status: 404 });
@@ -48,15 +30,16 @@ export default async function OpengraphImage({
     const src = `data:image/jpeg;base64,${file.toString("base64")}`;
     return new ImageResponse(
       <div style={{ display: "flex", width: "100%", height: "100%" }}>
+        {/* eslint-disable-next-line @next/next/no-img-element -- drawn into the PNG, not shown on a page */}
         <img
           src={src}
           alt=""
-          width={size.width}
-          height={size.height}
+          width={ogSize.width}
+          height={ogSize.height}
           style={{ objectFit: "cover", width: "100%", height: "100%" }}
         />
       </div>,
-      size,
+      ogSize,
     );
   }
 

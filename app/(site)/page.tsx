@@ -40,8 +40,8 @@ export default async function Home() {
           </h1>
           <p className="mt-8 max-w-xl text-xl leading-relaxed text-muted">
             {formatYears(totalMonths)} building scalable web applications and
-            microservices with React.js, Next.js and Node.js, now shipping AI
-            features like a RAG chat assistant. Based in {profile.location}.
+            microservices with React.js, Next.js and Node.js. Based in{" "}
+            {profile.location}.
           </p>
           <div className="mt-10 flex flex-wrap gap-4">
             <PrimaryButton href="#about">About me</PrimaryButton>

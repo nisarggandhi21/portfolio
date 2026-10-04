@@ -3,20 +3,16 @@ import ArticleVerdicts from "@/components/ArticleVerdicts";
 import Container from "@/components/Container";
 import SectionHeader from "@/components/SectionHeader";
 import { getAllPosts } from "@/lib/blog";
+import { blogDescription, shareMetadata } from "@/lib/seo";
 import { rssAlternate } from "@/lib/site";
 
-const description =
-  "Articles by Nisarg Gandhi on software development, web engineering and lessons from building real projects.";
+const title = "Blog | Nisarg Gandhi";
 
 export const metadata: Metadata = {
-  title: "Blog | Nisarg Gandhi",
-  description,
+  title,
+  description: blogDescription,
   alternates: { canonical: "/blog", types: rssAlternate },
-  openGraph: {
-    title: "Blog | Nisarg Gandhi",
-    description,
-    url: "/blog",
-  },
+  ...shareMetadata({ title, description: blogDescription, url: "/blog" }),
 };
 
 export default function BlogPage() {

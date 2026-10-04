@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 
 import Container from "@/components/Container";
 import Emphasis from "@/components/Emphasis";
+import JsonLd from "@/components/JsonLd";
 import SectionHeader from "@/components/SectionHeader";
 import { IndexBadge, Label, LogoTile, Tag } from "@/components/ui";
 import {
@@ -11,29 +12,25 @@ import {
   skillGroups,
   workExperience,
 } from "@/data";
+import { formatDuration, formatMonth, monthsBetween } from "@/lib/dates";
+import { experienceYears } from "@/lib/experience";
 import {
-  formatDuration,
-  formatMonth,
-  formatYears,
-  monthsBetween,
-} from "@/lib/dates";
+  personSchema,
+  shareMetadata,
+  workDescription,
+  workTitle,
+} from "@/lib/seo";
 import { workUrl } from "@/lib/site";
 
-const title = "Work | Nisarg Gandhi";
-const description =
-  "Experience, projects and skills of Nisarg Gandhi, a Full Stack Developer working with React.js, Next.js, Node.js and Python.";
-
 export const metadata: Metadata = {
-  title,
-  description,
+  title: workTitle,
+  description: workDescription,
   alternates: { canonical: workUrl },
-  openGraph: {
-    type: "website",
+  ...shareMetadata({
+    title: workTitle,
+    description: workDescription,
     url: workUrl,
-    siteName: "Nisarg Gandhi",
-    title,
-    description,
-  },
+  }),
 };
 
 // Rebuild daily so durations of the current role ("Present") stay accurate
@@ -61,18 +58,22 @@ const Row = ({
 );
 
 export default function WorkPage() {
-  const totalMonths = workExperience.reduce(
-    (sum, job) => sum + monthsBetween(job.start, job.end),
-    0,
-  );
-
   return (
     <>
+      <JsonLd
+        data={{
+          "@type": "ProfilePage",
+          name: workTitle,
+          url: workUrl,
+          description: workDescription,
+          mainEntity: personSchema(),
+        }}
+      />
       <Container className="pt-16 sm:pt-24">
         <SectionHeader
           as="h1"
           size="lg"
-          label={`The work · ${workExperience.length} roles · ${formatYears(totalMonths)}`}
+          label={`The work · ${workExperience.length} roles · ${experienceYears()}`}
           title="Where I've worked"
           intro="From an AI chat assistant, virtual try-on and Python microservices at Sugar Cosmetics to React dashboards, GraphQL APIs and CI/CD pipelines at Withum: where I've worked, what I built and the results it delivered."
         />

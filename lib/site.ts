@@ -16,11 +16,9 @@ export const rssAlternate = {
 
 export const siteTitle = "Nisarg Gandhi | Full Stack Developer";
 
-export const siteDescription =
-  "Portfolio of Nisarg Gandhi, a Full Stack Developer in Mumbai, India, building scalable web apps and AI features with React.js, Next.js, Node.js and Python.";
-
 // The experience page is served from its own subdomain (see middleware.ts)
 export const workUrl = "https://work.nisarg-gandhi.com";
+export const workHost = new URL(workUrl).host;
 
 // Link to the work site's home: its own domain in production, /work elsewhere
 export const workHref =

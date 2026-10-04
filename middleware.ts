@@ -1,8 +1,7 @@
 import { NextResponse, type NextRequest } from "next/server";
 
-import { workUrl } from "@/lib/site";
+import { workHost } from "@/lib/site";
 
-const workHost = new URL(workUrl).host;
 const mainDomain = workHost.replace(/^work\./, "");
 // A path with no page behind it; unlike the prerendered /404 it is served
 // with a 404 status
@@ -28,6 +27,7 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  // Pages only: skip Next.js internals and files such as images and feed.xml
-  matcher: ["/((?!_next/|.*\\..*).*)"],
+  // Pages only: skip Next.js internals, link-preview images (shared by both
+  // sites) and files such as images and feed.xml
+  matcher: ["/((?!_next/|.*opengraph-image|.*\\..*).*)"],
 };

@@ -1,8 +1,23 @@
 import type { MetadataRoute } from "next";
-import { getAllPosts } from "@/lib/blog";
-import { siteUrl } from "@/lib/site";
+import { headers } from "next/headers";
 
-export default function sitemap(): MetadataRoute.Sitemap {
+import { getAllPosts } from "@/lib/blog";
+import { siteUrl, workHost, workUrl } from "@/lib/site";
+
+// Each site lists only its own pages
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const host = (await headers()).get("host")?.split(":")[0];
+  if (host === workHost) {
+    return [
+      {
+        url: workUrl,
+        lastModified: new Date(),
+        changeFrequency: "monthly",
+        priority: 1,
+      },
+    ];
+  }
+
   const posts = getAllPosts();
 
   return [

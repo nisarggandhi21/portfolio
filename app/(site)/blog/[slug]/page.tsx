@@ -10,7 +10,9 @@ import { FiArrowLeft } from "react-icons/fi";
 import Container from "@/components/Container";
 import { Label } from "@/components/ui";
 import { formatDate, getAllPosts, getPostBySlug } from "@/lib/blog";
-import { rssAlternate } from "@/lib/site";
+import JsonLd from "@/components/JsonLd";
+import { authorRef, shareMetadata } from "@/lib/seo";
+import { rssAlternate, siteUrl } from "@/lib/site";
 
 // Only the posts in content/blog exist; anything else is a 404
 export const dynamicParams = false;
@@ -27,15 +29,19 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!post) return {};
 
   const title = `${post.title} | Nisarg Gandhi`;
+  const share = shareMetadata({
+    title,
+    description: post.description,
+    url: `/blog/${post.slug}`,
+  });
   return {
     title,
     description: post.description,
     alternates: { canonical: `/blog/${post.slug}`, types: rssAlternate },
+    ...share,
     openGraph: {
+      ...share.openGraph,
       type: "article",
-      title,
-      description: post.description,
-      url: `/blog/${post.slug}`,
       publishedTime: post.date,
       authors: ["Nisarg Gandhi"],
       tags: post.tags,
@@ -51,6 +57,20 @@ export default async function BlogPostPage({ params }: Props) {
 
   return (
     <Container className="pt-12 sm:pt-20">
+      <JsonLd
+        data={{
+          "@type": "BlogPosting",
+          headline: post.title,
+          description: post.description,
+          datePublished: post.date,
+          url: `${siteUrl}/blog/${post.slug}`,
+          mainEntityOfPage: `${siteUrl}/blog/${post.slug}`,
+          keywords: post.tags.join(", "),
+          ...(post.coverImage && { image: `${siteUrl}${post.coverImage}` }),
+          author: authorRef,
+          publisher: authorRef,
+        }}
+      />
       <article className="mx-auto max-w-3xl">
         <Link
           href="/blog"

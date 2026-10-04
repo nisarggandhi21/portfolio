@@ -7,9 +7,12 @@ import AboutCard from "@/components/home/AboutCard";
 import FindMe from "@/components/home/FindMe";
 import SectionHeader from "@/components/SectionHeader";
 import { Label, PrimaryButton, SecondaryButton } from "@/components/ui";
-import { profile, workExperience } from "@/data";
+import JsonLd from "@/components/JsonLd";
+import { profile } from "@/data";
 import { getAllPosts } from "@/lib/blog";
-import { formatYears, monthsBetween } from "@/lib/dates";
+import { experienceYears } from "@/lib/experience";
+import { personSchema, siteDescription } from "@/lib/seo";
+import { siteTitle, siteUrl } from "@/lib/site";
 import { getCodingHours } from "@/lib/wakatime";
 
 // Re-render at most once an hour so the WakaTime coding hours stay current
@@ -18,13 +21,23 @@ export const revalidate = 3600;
 export default async function Home() {
   const posts = getAllPosts();
   const codingHours = await getCodingHours();
-  const totalMonths = workExperience.reduce(
-    (sum, job) => sum + monthsBetween(job.start, job.end),
-    0,
-  );
 
   return (
     <>
+      <JsonLd
+        data={{
+          "@graph": [
+            {
+              "@type": "WebSite",
+              name: siteTitle,
+              url: siteUrl,
+              description: siteDescription(),
+              author: { "@id": `${siteUrl}/#person` },
+            },
+            personSchema(),
+          ],
+        }}
+      />
       {/* Hero */}
       <Container className="grid grid-cols-1 gap-14 pt-16 sm:pt-24 lg:grid-cols-[1.1fr_1fr] lg:gap-16 lg:pt-32">
         <div className="min-w-0">
@@ -39,7 +52,7 @@ export default async function Home() {
             </span>
           </h1>
           <p className="mt-8 max-w-xl text-xl leading-relaxed text-muted">
-            {formatYears(totalMonths)} building scalable web applications and
+            {experienceYears()} building scalable web applications and
             microservices with React.js, Next.js and Node.js. Based in{" "}
             {profile.location}.
           </p>

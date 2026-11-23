@@ -30,10 +30,17 @@ export const workExperience: Experience[] = [
     projects: [
       {
         name: "AI & Customer Features",
-        stack: ["React.js", "RAG", "LangChain", "LLM APIs"],
+        stack: [
+          "React.js",
+          "MediaPipe",
+          "RAG",
+          "LangChain",
+          "Claude",
+          "pgvector",
+        ],
         points: [
-          "Engineered a virtual try-on feature with React.js and a face tracking library, letting shoppers upload a selfie and preview Sugar cosmetics products live on their face with real-time overlays and product recommendations.",
-          "Built an AI chat assistant using RAG (Retrieval-Augmented Generation) and LangChain, integrating **3 internal data sources** to answer product and support queries.",
+          "Engineered a virtual try-on feature with React.js and Google MediaPipe (**478-point** face mesh), letting shoppers upload a selfie and preview Sugar Cosmetics products on their face, with two-pass face detection for precise lip overlays and product recommendations.",
+          "Built an internal AI chat assistant using RAG (Retrieval-Augmented Generation) with LangChain, Claude and pgvector, integrating **3 internal data sources** to answer **~100 product and support queries per day** from internal teams.",
         ],
       },
       {
@@ -48,9 +55,9 @@ export const workExperience: Experience[] = [
         name: "Backend & Cloud Optimization",
         stack: ["Python", "Docker", "Redis", "AWS Lambda", "EC2"],
         points: [
-          "Created backend microservices in Python and containerized them with Docker, decoupling business logic from the core platform to improve scalability and maintainability.",
+          "Created **10+ Python microservices** containerized with Docker, decoupling business logic from the core platform to improve scalability and maintainability.",
           "Introduced Redis caching in an internal warehouse and stock management dashboard used by the operations team, reducing redundant API calls and improving data load time by **20%** for real-time inventory tracking.",
-          "Migrated **5 services** from EC2 to AWS Lambda and optimized instance types, reducing monthly infrastructure costs and eliminating idle compute overhead.",
+          "Migrated **5 services** from EC2 to **20+ AWS Lambda functions**, retiring **2 t3.medium instances** and optimizing the remaining instance types to reduce monthly infrastructure costs and idle compute.",
         ],
       },
     ],
@@ -69,7 +76,7 @@ export const workExperience: Experience[] = [
         name: "Analytics Dashboard",
         stack: ["React.js", "Next.js", "Node.js", "GraphQL"],
         points: [
-          "Architected a React analytics dashboard for US tax auditing workflows, improving data rendering efficiency and reducing code duplication by **30%**.",
+          "Architected a React.js/Next.js analytics dashboard used by **10K users** for US tax auditing workflows, improving data rendering efficiency and reducing code duplication by **30%**.",
           "Implemented GraphQL APIs, decreasing payload size by **35%** and accelerating response time by **20%**.",
         ],
       },
@@ -78,15 +85,15 @@ export const workExperience: Experience[] = [
         stack: ["Angular", "Python"],
         points: [
           "Revamped audit workflows using Angular UI and Python data pipelines, increasing processing throughput by **3x** and reducing manual effort by **40%**.",
-          "Guided **2 junior developers**, accelerating onboarding and enhancing sprint delivery efficiency.",
+          "Guided **2 junior developers** through onboarding and sprint delivery.",
         ],
       },
       {
         name: "API Services & Data Optimization",
-        stack: ["Node.js", "PostgreSQL", "MongoDB"],
+        stack: ["Java", "PostgreSQL", "MongoDB"],
         points: [
           "Developed a Java microservice to handle asynchronous report generation, decoupling it from the core platform and improving overall system scalability.",
-          "Refined database queries and indexing strategies, cutting execution time by **40%** and lowering load by **25%**.",
+          "Refined PostgreSQL and MongoDB queries and indexing strategies, cutting execution time by **40%** and lowering load by **25%**.",
         ],
       },
       {
@@ -112,7 +119,7 @@ export const workExperience: Experience[] = [
         name: "Transportation Business Platform",
         stack: ["React.js", "Node.js"],
         points: [
-          "Built a full-stack website for a client in the transportation business using React.js and Node.js, optimizing frontend rendering and API performance.",
+          "Built a full-stack website for a client in the transportation business using React.js and Node.js, raising its Lighthouse score from **75 to 90+**.",
         ],
       },
       {
@@ -201,6 +208,7 @@ export const skillGroups = [
       "LLM API Integration",
       "RAG Pipelines",
       "LangChain",
+      "pgvector",
       "Prompt Engineering",
       "Claude Code (Spec-Driven Development)",
       "AI Feature Development",
@@ -216,7 +224,7 @@ export const profile = {
   email: "nisarggandhi21@gmail.com",
   // Shown as the quote in the homepage experience card
   highlight:
-    "Built an AI chat assistant with RAG and LangChain that answers product and support queries from 3 internal data sources.",
+    "Built an AI chat assistant with RAG, LangChain and pgvector that answers ~100 product and support queries a day from 3 internal data sources.",
   wakatimeProfile: "https://wakatime.com/@nisarggandhi21",
   links: [
     { label: "GitHub", href: "https://github.com/nisarggandhi21" },
@@ -255,6 +263,7 @@ export const education = [
     logo: "/logos/pes-university.png",
     degree: "Master of Computer Applications (MCA)",
     shortDegree: "MCA",
+    grade: "CGPA 8.13",
     location: "Bengaluru",
     period: "Oct 2022 – Jun 2024",
   },
@@ -263,6 +272,7 @@ export const education = [
     logo: "/logos/sk-somaiya.svg",
     degree: "BSc Computer Science",
     shortDegree: "BSc CS",
+    grade: "CGPA 8.20",
     location: "Mumbai",
     period: "Jun 2019 – Mar 2022",
   },

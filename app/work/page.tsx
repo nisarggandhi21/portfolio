@@ -223,7 +223,7 @@ export default function WorkPage() {
               <div className="min-w-0 flex-1">
                 <p className="text-lg font-medium text-ink">{item.degree}</p>
                 <p className="text-[15px] text-muted">
-                  {item.school}, {item.location}
+                  {item.school}, {item.location} · {item.grade}
                 </p>
               </div>
               <span className="label text-faint">{item.period}</span>
